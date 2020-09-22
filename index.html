@@ -47,17 +47,17 @@
                             <div class="form-row">
                               <div class="form-group col-md-6">
                                 <label for="inputEmail4">Pickup Date</label>
-                                <input class="form-control" id="inputEmail4" type="text">
+                                <input class="form-control" id="inputEmail4" type="date">
                               </div>
                               <div class="form-group col-md-6">
                                 <label for="inputPassword4">Pickup Time</label>
-                                <input class="form-control" id="inputPassword4" type="text">
+                                <input class="form-control" id="inputPassword4" type="time">
                               </div>
                             </div>
                             <!-- Pickup location -->
                             <div class="form-group">
-                              <label for="inputAddress">Pickup Location</label>
                               <div class="inputAdress-input">
+                                <label for="inputAddress">Pickup Location</label>
                                 <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
                                 <button role="button" class="pickup-button" id="add-waypoint">+</button>
                               </div>
@@ -174,7 +174,20 @@
                     </div>
                     <div class="col-md-6">
                       <div id="map" style="width:100%;height:400px;"></div>
-                      <div id="total"></div>
+                      <div id="total">
+                        <div class="row pt-2">
+                          <div class="col-md-6 text-center">
+                            <img src="img/distance.png" alt="">
+                            <p class="p-result">TOTAL DISTANCE</p>
+                            <div id="distance-result">345 km</div>
+                          </div>
+                          <div class="col-md-6 text-center">
+                            <img src="img/time.png" alt="">
+                            <p class="p-result">TOTAL TIME</p>
+                            <div id="time-result">2h 20m </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

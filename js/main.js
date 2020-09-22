@@ -298,7 +298,7 @@ function createWaypointInput() {
 
   // create input container
   const newInputContainer = document.createElement("div");
-  newInputContainer.setAttribute("class", "inputAdress-waypoint");
+  newInputContainer.setAttribute("class", "form-group inputAdress-waypoint");
   newInputContainer.setAttribute("id", "waypoint_container_" + waypointID);
 
 

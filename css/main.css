@@ -758,8 +758,22 @@ h1, h2, h3, h4, h5, h6, p, span, a, label, input, ::placeholder, div {
   font-size: 14px;
 }
 
+
 #car-booking-structre p {
   color: #ff700a;
+}
+
+.p-result {
+  color: #778591 !important;
+  font-size: 12px;
+
+}
+
+#time-result, #distance-result {
+  font-size: 26px;
+  font-weight: 400;
+  color:#2C3E50;
+
 }
 
 #car-booking-structre #heading {
