@@ -1,180 +1,551 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Car Booking System</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&amp;display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div class="discover-the-world"></div>
-    <div class="container-fluid" id="car-booking-structre">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-11 col-sm-6 col-md-12 col-lg-12 col-xl-12 text-center p-0 mt-3 mb-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-              <h2 id="heading">Car Booking Stystem</h2>
-              <p>Fill all form field to go to next step</p>
-              <form id="msform">
-                <!-- progressbar-->
-                <ul id="progressbar">
-                  <li class="active" id="account"><strong>Enter Ride Details</strong></li>
-                  <li id="personal"><strong>Choose a Vehicle</strong></li>
-                  <li id="payment"><strong>Enter Contact Details</strong></li>
-                  <li id="confirm"><strong>Booking Summary</strong></li>
-                </ul><br>
-                <!-- fieldsets-->
-                <fieldset id="first-stage">
-                  <div class="form-card">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                          <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Distance</a></li>
-                          <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hourly</a></li>
-                          <!-- <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Flat rate</a></li> -->
-                        </ul>
-                        <div class="tab-content" id="myTabContent">
-                          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div class="distance-tap">
-                              <div class="title">
-                                <p>RIDE DETAILS</p>
+
+<head>
+  <title>Car Booking System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&amp;display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container-fluid" id="car-booking-structre">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-11 col-sm-6 col-md-12 col-lg-12 col-xl-12 text-center p-0 mt-3 mb-2">
+          <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+            <h2 id="heading">Car Booking Stystem</h2>
+            <p>Fill all form field to go to next step</p>
+            <form id="msform">
+              <!-- progressbar-->
+              <ul id="progressbar">
+                <li class="active" id="account"><strong>Enter Ride Details</strong></li>
+                <li id="personal"><strong>Choose a Vehicle</strong></li>
+                <li id="payment"><strong>Enter Contact Details</strong></li>
+                <li id="confirm"><strong>Booking Summary</strong></li>
+              </ul><br>
+              <!-- fieldsets-->
+              <fieldset id="first-stage">
+                <div class="form-card">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Distance</a></li>
+                        <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hourly</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Flat rate</a></li> -->
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                          <div class="distance-tap">
+                            <div class="title">
+                              <p>RIDE DETAILS</p>
+                            </div>
+                          </div>
+                          <div class="form">
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">Pickup Date</label>
+                                <input class="form-control" id="inputEmail4" type="text">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputPassword4">Pickup Time</label>
+                                <input class="form-control" id="inputPassword4" type="text">
                               </div>
                             </div>
-                            <div class="form">
-                              <div class="form-row">
-                                <div class="form-group col-md-6">
-                                  <label for="inputEmail4">Pickup Date</label>
-                                  <input class="form-control" id="inputEmail4" type="text">
+                            <div class="form-group">
+                              <label for="inputAddress">Pickup Location</label>
+                              <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
+                            </div>
+                            <div class="form-group">
+                              <label for="inputAddress2">Drop-off-location</label>
+                              <input class="form-control" id="inputAddress2" type="text" placeholder="Enter a location">
+                            </div>
+                            <div class="distance-tap">
+                              <div class="title">
+                                <p>EXTRA OPTIONS</p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputState">EXTRA TIME </label>
+                              <select class="form-control custom-select" id="inputState">
+                                <option selected="">0 hour(s)</option>
+                                <option>1 hour(s)</option>
+                                <option>2 hour(s)</option>
+                                <option>3 hour(s)</option>
+                                <option>4 hour(s)</option>
+                                <option>5 hour(s)</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                          <div class="distance-tap">
+                            <div class="title">
+                              <p>RIDE DETAILS</p>
+                            </div>
+                          </div>
+                          <div class="form">
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">Pickup Date</label>
+                                <input class="form-control" id="inputEmail4" type="text">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputPassword4">Pickup Time</label>
+                                <input class="form-control" id="inputPassword4" type="text">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputAddress">Pickup Location</label>
+                              <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
+                            </div>
+                            <div class="form-group">
+                              <label for="inputAddress2">Drop-off-location</label>
+                              <input class="form-control" id="inputAddress2" type="text" placeholder="Enter a location">
+                            </div>
+                            <div class="distance-tap">
+                              <div class="title">
+                                <p>EXTRA OPTIONS</p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputState">EXTRA TIME </label>
+                              <select class="form-control" id="inputState">
+                                <option selected="">0 hour(s)</option>
+                                <option>1 hour(s)</option>
+                                <option>2 hour(s)</option>
+                                <option>3 hour(s)</option>
+                                <option>4 hour(s)</option>
+                                <option>5 hour(s)</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                          <div class="distance-tap">
+                            <div class="title">
+                              <p>RIDE DETAILS</p>
+                            </div>
+                          </div>
+                          <div class="form">
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">Pickup Date</label>
+                                <input class="form-control" id="inputEmail4" type="text">
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="inputPassword4">Pickup Time</label>
+                                <input class="form-control" id="inputPassword4" type="text">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputAddress">Pickup Location</label>
+                              <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
+                            </div>
+                            <div class="form-group">
+                              <label for="inputAddress2">Drop-off-location</label>
+                              <input class="form-control" id="inputAddress2" type="text" placeholder="Enter a location">
+                            </div>
+                            <div class="distance-tap">
+                              <div class="title">
+                                <p>EXTRA OPTIONS</p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputState">EXTRA TIME </label>
+                              <select class="form-control" id="inputState">
+                                <option selected="">0 hour(s)</option>
+                                <option>1 hour(s)</option>
+                                <option>2 hour(s)</option>
+                                <option>3 hour(s)</option>
+                                <option>4 hour(s)</option>
+                                <option>5 hour(s)</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div id="googleMap" style="width:100%;height:400px;"></div>
+                    </div>
+                  </div>
+                </div>
+                <input class="next action-button" type="button" name="next" value="Next">
+              </fieldset>
+              <fieldset id="sec-stage">
+                <div class="form-card">
+                  <div class="row">
+                    <div class="col-md-3 height">
+                      <div class="fixed-pos">
+                        <div class="rSide">
+                          <div class="f-details">
+                            <h6 class="title">Summary</h6>
+                            <p class="small">SERVICE TYPE</p>
+                            <p class="mediam">Hourly</p>
+                          </div>
+                          <div class="f-details">
+                            <p class="small">FROM - TO</p>
+                            <p class="mediam">Cairo, Egypt - Cairo Festival City, Nasr City, Egypt</p>
+                          </div>
+                          <div class="f-details">
+                            <p class="small">PICKUP DATE, TIME</p>
+                            <p class="mediam">14-07-2020, 7:30</p>
+                          </div>
+                          <div class="f-details">
+                            <p class="small">EXTRA TIME</p>
+                            <p class="mediam">1 hours</p>
+                          </div>
+                          <div class="col-two">
+                            <div class="f-details">
+                              <p class="small">TOTAL DISTANCE</p>
+                              <p class="mediam">26.3 km</p>
+                            </div>
+                            <div class="f-details">
+                              <p class="small">TOTAL TIME</p>
+                              <p class="mediam">1 h 31 m</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="total-invoice">
+                          <div class="col-two">
+                            <h6 class="title">Total</h6>
+                            <h6 class="title">$0.00</h6>
+                          </div>
+                          <div class="col-two">
+                            <h6 class="title">To pay <span class="small"> (30% deposit)</span></h6>
+                            <h6 class="title">$0.00</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="l-side">
+                        <div class="filter-table">
+                          <div class="col-md-12 p-0">
+                            <div class="title">
+                              <h5>VEHICLES FILTER</h5>
+                            </div>
+                          </div>
+                          <div class="items-box">
+                            <div class="row px-3">
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label for="inputState">PASSENGERS</label>
+                                  <select class="form-control custom-select" id="inputState">
+                                    <option selected="">1</option>
+                                    <option>2 </option>
+                                    <option>3 </option>
+                                    <option>4 </option>
+                                    <option>5 </option>
+                                  </select>
                                 </div>
-                                <div class="form-group col-md-6">
-                                  <label for="inputPassword4">Pickup Time</label>
-                                  <input class="form-control" id="inputPassword4" type="text">
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label for="inputState">SUITCASES </label>
+                                  <select class="form-control custom-select" id="inputState">
+                                    <option selected="">1</option>
+                                    <option>2 </option>
+                                    <option>3 </option>
+                                    <option>4 </option>
+                                    <option>5 </option>
+                                  </select>
                                 </div>
                               </div>
-                              <div class="form-group">
-                                <label for="inputAddress">Pickup Location</label>
-                                <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
-                              </div>
-                              <div class="form-group">
-                                <label for="inputAddress2">Drop-off-location</label>
-                                <input class="form-control" id="inputAddress2" type="text" placeholder="Enter a location">
-                              </div>
-                              <div class="distance-tap">
-                                <div class="title">
-                                  <p>EXTRA OPTIONS</p>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label for="inputState">TYPE </label>
+                                  <select class="form-control custom-select" id="inputState">
+                                    <option selected="">- All vehicles -</option>
+                                    <option>Limousine</option>
+                                    <option>Sedan</option>
+                                    <option>Stretch Limousine</option>
+                                    <option>SUV</option>
+                                    <option>Van</option>
+                                  </select>
                                 </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="inputState">EXTRA TIME </label>
-                                <select class="form-control custom-select" id="inputState">
-                                  <option selected="">0 hour(s)</option>
-                                  <option>1 hour(s)</option>
-                                  <option>2 hour(s)</option>
-                                  <option>3 hour(s)</option>
-                                  <option>4 hour(s)</option>
-                                  <option>5 hour(s)</option>
-                                </select>
                               </div>
                             </div>
                           </div>
-                          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="distance-tap">
-                              <div class="title">
-                                <p>RIDE DETAILS</p>
-                              </div>
-                            </div>
-                            <div class="form">
-                              <div class="form-row">
-                                <div class="form-group col-md-6">
-                                  <label for="inputEmail4">Pickup Date</label>
-                                  <input class="form-control" id="inputEmail4" type="text">
+                        </div>
+                        <div id="vehicle-card">
+                          <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="card">
+                              <div class="card-body p-0">
+                                <div class="row p-0">
+                                  <div class="col-md-4 p-0">
+                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="row p-0">
+                                      <div class="col-md-8">
+                                        <h2 class="card-title">Mercedes-Benz E220</h2>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <label>
+                                          <input class="card-input-element" type="radio" name="product">
+                                          <div class="select-btn card-input"><a class="try">Select</a></div>
+                                        </label>
+                                      </div>
+                                      <div class="col-md-12">
+                                        <h2 class="card-price">$18.41</h2>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="hidden-div">
+                                          <div class="menu" style="display: none;">
+                                            <p>The mid-size luxury sedan by BMW with great V8 engine with both natural aspiration and turbocharging. A great option for corporate travel</p>
+                                            <div class="info-table">
+                                              <div class="row w-100">
+                                                <div class="col-md-6">
+                                                  <ul>
+                                                    <li>
+                                                      <div class="details">
+                                                        <div class="name">
+                                                          <p>ENGINE</p>
+                                                        </div>
+                                                        <div class="info">
+                                                          <p>2200</p>
+                                                        </div>
+                                                      </div>
+                                                    </li>
+                                                    <li>
+                                                      <div class="details">
+                                                        <div class="name">
+                                                          <p>INTERIOR COLOR</p>
+                                                        </div>
+                                                        <div class="info">
+                                                          <p>Black</p>
+                                                        </div>
+                                                      </div>
+                                                    </li>
+                                                    <li>
+                                                      <div class="details">
+                                                        <div class="name">
+                                                          <p>POWER</p>
+                                                        </div>
+                                                        <div class="info">
+                                                          <p>190</p>
+                                                        </div>
+                                                      </div>
+                                                    </li>
+                                                    <li>
+                                                      <div class="details">
+                                                        <div class="name">
+                                                          <p>FUEL TYPE</p>
+                                                        </div>
+                                                        <div class="info">
+                                                          <p>Petrol</p>
+                                                        </div>
+                                                      </div>
+                                                    </li>
+                                                  </ul>
+                                                </div>
+                                                <div class="col-md-6">
+                                                  <ul>
+                                                    <li>
+                                                      <div class="details">
+                                                        <div class="name">
+                                                          <p>LENGTH</p>
+                                                        </div>
+                                                        <div class="info">
+                                                          <p>4.5 meters</p>
+                                                        </div>
+                                                      </div>
+                                                    </li>
+                                                    <li>
+                                                      <div class="details">
+                                                        <div class="name">
+                                                          <p>EXTERIOR COLOR</p>
+                                                        </div>
+                                                        <div class="info">
+                                                          <p>Phantom Black</p>
+                                                        </div>
+                                                      </div>
+                                                    </li>
+                                                    <li>
+                                                      <div class="details">
+                                                        <div class="name">
+                                                          <p>TRANSMISSION</p>
+                                                        </div>
+                                                        <div class="info">
+                                                          <p>Automatic</p>
+                                                        </div>
+                                                      </div>
+                                                    </li>
+                                                    <li>
+                                                      <div class="details">
+                                                        <div class="name">
+                                                          <p>EXTRAS</p>
+                                                        </div>
+                                                        <div class="info">
+                                                          <p>Alloy Wheels, Bluetooth, Radio</p>
+                                                        </div>
+                                                      </div>
+                                                    </li>
+                                                  </ul>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div id="show">More info </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                  <label for="inputPassword4">Pickup Time</label>
-                                  <input class="form-control" id="inputPassword4" type="text">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="inputAddress">Pickup Location</label>
-                                <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
-                              </div>
-                              <div class="form-group">
-                                <label for="inputAddress2">Drop-off-location</label>
-                                <input class="form-control" id="inputAddress2" type="text" placeholder="Enter a location">
-                              </div>
-                              <div class="distance-tap">
-                                <div class="title">
-                                  <p>EXTRA OPTIONS</p>
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="inputState">EXTRA TIME </label>
-                                <select class="form-control" id="inputState">
-                                  <option selected="">0 hour(s)</option>
-                                  <option>1 hour(s)</option>
-                                  <option>2 hour(s)</option>
-                                  <option>3 hour(s)</option>
-                                  <option>4 hour(s)</option>
-                                  <option>5 hour(s)</option>
-                                </select>
                               </div>
                             </div>
                           </div>
-                          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                            <div class="distance-tap">
-                              <div class="title">
-                                <p>RIDE DETAILS</p>
+                          <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="card">
+                              <div class="card-body p-0">
+                                <div class="row p-0">
+                                  <div class="col-md-4 p-0">
+                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="row p-00">
+                                      <div class="col-md-8">
+                                        <h2 class="card-title">Mercedes-Benz E220</h2>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <label>
+                                          <input class="card-input-element" type="radio" name="product">
+                                          <div class="select-btn card-input"><a class="try">Select</a></div>
+                                        </label>
+                                      </div>
+                                      <div class="col-md-12">
+                                        <h2 class="card-price">$18.41</h2>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                            <div class="form">
-                              <div class="form-row">
-                                <div class="form-group col-md-6">
-                                  <label for="inputEmail4">Pickup Date</label>
-                                  <input class="form-control" id="inputEmail4" type="text">
+                          </div>
+                          <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="card">
+                              <div class="card-body p-0">
+                                <div class="row p-0">
+                                  <div class="col-md-4 p-0">
+                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="row p-0">
+                                      <div class="col-md-8">
+                                        <h2 class="card-title">Mercedes-Benz E220</h2>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <label>
+                                          <input class="card-input-element" type="radio" name="product">
+                                          <div class="select-btn card-input"><a class="try">Select</a></div>
+                                        </label>
+                                      </div>
+                                      <div class="col-md-12">
+                                        <h2 class="card-price">$18.41</h2>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                  <label for="inputPassword4">Pickup Time</label>
-                                  <input class="form-control" id="inputPassword4" type="text">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="card">
+                              <div class="card-body p-0">
+                                <div class="row p-0">
+                                  <div class="col-md-4 p-0">
+                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="row p-0">
+                                      <div class="col-md-8">
+                                        <h2 class="card-title">Mercedes-Benz E220</h2>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <label>
+                                          <input class="card-input-element" type="radio" name="product">
+                                          <div class="select-btn card-input"><a class="try">Select</a></div>
+                                        </label>
+                                      </div>
+                                      <div class="col-md-12">
+                                        <h2 class="card-price">$18.41</h2>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="form-group">
-                                <label for="inputAddress">Pickup Location</label>
-                                <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
-                              </div>
-                              <div class="form-group">
-                                <label for="inputAddress2">Drop-off-location</label>
-                                <input class="form-control" id="inputAddress2" type="text" placeholder="Enter a location">
-                              </div>
-                              <div class="distance-tap">
-                                <div class="title">
-                                  <p>EXTRA OPTIONS</p>
+                            </div>
+                          </div>
+                          <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="card">
+                              <div class="card-body p-0">
+                                <div class="row p-0">
+                                  <div class="col-md-4 p-0">
+                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="row p-0">
+                                      <div class="col-md-8">
+                                        <h2 class="card-title">Mercedes-Benz E220</h2>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <label>
+                                          <input class="card-input-element" type="radio" name="product">
+                                          <div class="select-btn card-input"><a class="try">Select</a></div>
+                                        </label>
+                                      </div>
+                                      <div class="col-md-12">
+                                        <h2 class="card-price">$18.41</h2>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="form-group">
-                                <label for="inputState">EXTRA TIME </label>
-                                <select class="form-control" id="inputState">
-                                  <option selected="">0 hour(s)</option>
-                                  <option>1 hour(s)</option>
-                                  <option>2 hour(s)</option>
-                                  <option>3 hour(s)</option>
-                                  <option>4 hour(s)</option>
-                                  <option>5 hour(s)</option>
-                                </select>
+                            </div>
+                          </div>
+                          <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="card">
+                              <div class="card-body p-0">
+                                <div class="row p-0">
+                                  <div class="col-md-4 p-0">
+                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="row p-0">
+                                      <div class="col-md-8">
+                                        <h2 class="card-title">Mercedes-Benz E220</h2>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <label>
+                                          <input class="card-input-element" type="radio" name="product">
+                                          <div class="select-btn card-input"><a class="try">Select</a></div>
+                                        </label>
+                                      </div>
+                                      <div class="col-md-12">
+                                        <h2 class="card-price">$18.41</h2>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div id="googleMap" style="width:100%;height:400px;"></div>
-                      </div>
                     </div>
                   </div>
-                  <input class="next action-button" type="button" name="next" value="Next">
-                </fieldset>
-                <fieldset id="sec-stage">
+                </div>
+                <input class="next action-button" type="button" name="next" value="Next">
+                <input class="previous action-button-previous" type="button" name="previous" value="Previous">
+              </fieldset>
+              <fieldset>
+                <div id="third-stage">
                   <div class="form-card">
                     <div class="row">
                       <div class="col-md-3 height">
@@ -221,593 +592,228 @@
                         </div>
                       </div>
                       <div class="col-md-9">
-                        <div class="l-side">
-                          <div class="filter-table">
-                            <div class="col-md-12 p-0">
-                              <div class="title">
-                                <h5>VEHICLES FILTER</h5>
-                              </div>
-                            </div>
-                            <div class="items-box">
-                              <div class="row px-3">
-                                <div class="col-md-4">
-                                  <div class="form-group">
-                                    <label for="inputState">PASSENGERS</label>
-                                    <select class="form-control custom-select" id="inputState">
-                                      <option selected="">1</option>
-                                      <option>2 </option>
-                                      <option>3 </option>
-                                      <option>4 </option>
-                                      <option>5 </option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="col-md-4">
-                                  <div class="form-group">
-                                    <label for="inputState">SUITCASES </label>
-                                    <select class="form-control custom-select" id="inputState">
-                                      <option selected="">1</option>
-                                      <option>2 </option>
-                                      <option>3 </option>
-                                      <option>4 </option>
-                                      <option>5 </option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="col-md-4">
-                                  <div class="form-group">
-                                    <label for="inputState">TYPE </label>
-                                    <select class="form-control custom-select" id="inputState">
-                                      <option selected="">- All vehicles -</option>
-                                      <option>Limousine</option>
-                                      <option>Sedan</option>
-                                      <option>Stretch Limousine</option>
-                                      <option>SUV</option>
-                                      <option>Van</option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
+                        <div class="personal-info-form">
+                          <div class="form-title">
+                            <div class="title">
+                              <p>RIDE DETAILS</p>
                             </div>
                           </div>
-                          <div id="vehicle-card">
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                              <div class="card">
-                                <div class="card-body p-0">
-                                  <div class="row p-0">
-                                    <div class="col-md-4 p-0">
-                                      <div class="card-img"><img src="./img/car.jpg" alt=""></div>
-                                    </div>
-                                    <div class="col-md-8">
-                                      <div class="row p-0">
-                                        <div class="col-md-8">
-                                          <h2 class="card-title">Mercedes-Benz E220</h2>
-                                        </div>
-                                        <div class="col-md-4">
-                                          <label>
-                                            <input class="card-input-element" type="radio" name="product">
-                                            <div class="select-btn card-input"><a class="try">Select</a></div>
-                                          </label>
-                                        </div>
-                                        <div class="col-md-12">
-                                          <h2 class="card-price">$18.41</h2>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-md-12">
-                                          <div class="hidden-div">
-                                            <div class="menu" style="display: none;">
-                                              <p>The mid-size luxury sedan by BMW with great V8 engine with both natural aspiration and turbocharging. A great option for corporate travel</p>
-                                              <div class="info-table">
-                                                <div class="row w-100">
-                                                  <div class="col-md-6">
-                                                    <ul>
-                                                      <li>
-                                                        <div class="details">
-                                                          <div class="name">
-                                                            <p>ENGINE</p>
-                                                          </div>
-                                                          <div class="info">
-                                                            <p>2200</p>
-                                                          </div>
-                                                        </div>
-                                                      </li>
-                                                      <li>
-                                                        <div class="details">
-                                                          <div class="name">
-                                                            <p>INTERIOR COLOR</p>
-                                                          </div>
-                                                          <div class="info">
-                                                            <p>Black</p>
-                                                          </div>
-                                                        </div>
-                                                      </li>
-                                                      <li>
-                                                        <div class="details">
-                                                          <div class="name">
-                                                            <p>POWER</p>
-                                                          </div>
-                                                          <div class="info">
-                                                            <p>190</p>
-                                                          </div>
-                                                        </div>
-                                                      </li>
-                                                      <li>
-                                                        <div class="details">
-                                                          <div class="name">
-                                                            <p>FUEL TYPE</p>
-                                                          </div>
-                                                          <div class="info">
-                                                            <p>Petrol</p>
-                                                          </div>
-                                                        </div>
-                                                      </li>
-                                                    </ul>
-                                                  </div>
-                                                  <div class="col-md-6">
-                                                    <ul>
-                                                      <li>
-                                                        <div class="details">
-                                                          <div class="name">
-                                                            <p>LENGTH</p>
-                                                          </div>
-                                                          <div class="info">
-                                                            <p>4.5 meters</p>
-                                                          </div>
-                                                        </div>
-                                                      </li>
-                                                      <li>
-                                                        <div class="details">
-                                                          <div class="name">
-                                                            <p>EXTERIOR COLOR</p>
-                                                          </div>
-                                                          <div class="info">
-                                                            <p>Phantom Black</p>
-                                                          </div>
-                                                        </div>
-                                                      </li>
-                                                      <li>
-                                                        <div class="details">
-                                                          <div class="name">
-                                                            <p>TRANSMISSION</p>
-                                                          </div>
-                                                          <div class="info">
-                                                            <p>Automatic</p>
-                                                          </div>
-                                                        </div>
-                                                      </li>
-                                                      <li>
-                                                        <div class="details">
-                                                          <div class="name">
-                                                            <p>EXTRAS</p>
-                                                          </div>
-                                                          <div class="info">
-                                                            <p>Alloy Wheels, Bluetooth, Radio</p>
-                                                          </div>
-                                                        </div>
-                                                      </li>
-                                                    </ul>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div id="show">More info																		</div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">FIRST NAME * </label>
+                              <input class="form-control" type="text">
                             </div>
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                              <div class="card">
-                                <div class="card-body p-0">
-                                  <div class="row p-0">
-                                    <div class="col-md-4 p-0">
-                                      <div class="card-img"><img src="./img/car.jpg" alt=""></div>
-                                    </div>
-                                    <div class="col-md-8">
-                                      <div class="row p-00">
-                                        <div class="col-md-8">
-                                          <h2 class="card-title">Mercedes-Benz E220</h2>
-                                        </div>
-                                        <div class="col-md-4">
-                                          <label>
-                                            <input class="card-input-element" type="radio" name="product">
-                                            <div class="select-btn card-input"><a class="try">Select</a></div>
-                                          </label>
-                                        </div>
-                                        <div class="col-md-12">
-                                          <h2 class="card-price">$18.41</h2>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">LAST NAME *</label>
+                              <input class="form-control" type="text">
                             </div>
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                              <div class="card">
-                                <div class="card-body p-0">
-                                  <div class="row p-0">
-                                    <div class="col-md-4 p-0">
-                                      <div class="card-img"><img src="./img/car.jpg" alt=""></div>
-                                    </div>
-                                    <div class="col-md-8">
-                                      <div class="row p-0">
-                                        <div class="col-md-8">
-                                          <h2 class="card-title">Mercedes-Benz E220</h2>
-                                        </div>
-                                        <div class="col-md-4">
-                                          <label>
-                                            <input class="card-input-element" type="radio" name="product">
-                                            <div class="select-btn card-input"><a class="try">Select</a></div>
-                                          </label>
-                                        </div>
-                                        <div class="col-md-12">
-                                          <h2 class="card-price">$18.41</h2>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">E-MAIL ADDRESS *</label>
+                              <input class="form-control" id="inputEmail4" type="text">
                             </div>
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                              <div class="card">
-                                <div class="card-body p-0">
-                                  <div class="row p-0">
-                                    <div class="col-md-4 p-0">
-                                      <div class="card-img"><img src="./img/car.jpg" alt=""></div>
-                                    </div>
-                                    <div class="col-md-8">
-                                      <div class="row p-0">
-                                        <div class="col-md-8">
-                                          <h2 class="card-title">Mercedes-Benz E220</h2>
-                                        </div>
-                                        <div class="col-md-4">
-                                          <label>
-                                            <input class="card-input-element" type="radio" name="product">
-                                            <div class="select-btn card-input"><a class="try">Select</a></div>
-                                          </label>
-                                        </div>
-                                        <div class="col-md-12">
-                                          <h2 class="card-price">$18.41</h2>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">PHONE NUMBER</label>
+                              <input class="form-control" type="text">
                             </div>
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                              <div class="card">
-                                <div class="card-body p-0">
-                                  <div class="row p-0">
-                                    <div class="col-md-4 p-0">
-                                      <div class="card-img"><img src="./img/car.jpg" alt=""></div>
-                                    </div>
-                                    <div class="col-md-8">
-                                      <div class="row p-0">
-                                        <div class="col-md-8">
-                                          <h2 class="card-title">Mercedes-Benz E220</h2>
-                                        </div>
-                                        <div class="col-md-4">
-                                          <label>
-                                            <input class="card-input-element" type="radio" name="product">
-                                            <div class="select-btn card-input"><a class="try">Select</a></div>
-                                          </label>
-                                        </div>
-                                        <div class="col-md-12">
-                                          <h2 class="card-price">$18.41</h2>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label for="inputEmail4">COMMENTS</label>
+                              <input class="form-control" type="text">
                             </div>
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                              <div class="card">
-                                <div class="card-body p-0">
-                                  <div class="row p-0">
-                                    <div class="col-md-4 p-0">
-                                      <div class="card-img"><img src="./img/car.jpg" alt=""></div>
-                                    </div>
-                                    <div class="col-md-8">
-                                      <div class="row p-0">
-                                        <div class="col-md-8">
-                                          <h2 class="card-title">Mercedes-Benz E220</h2>
-                                        </div>
-                                        <div class="col-md-4">
-                                          <label>
-                                            <input class="card-input-element" type="radio" name="product">
-                                            <div class="select-btn card-input"><a class="try">Select</a></div>
-                                          </label>
-                                        </div>
-                                        <div class="col-md-12">
-                                          <h2 class="card-price">$18.41</h2>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                          </div>
+                          <div class="form-title">
+                            <div class="title">
+                              <p>BILLING ADDRESS</p>
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">FIRST NAME * </label>
+                              <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputPassword4">TAX NUMBER</label>
+                              <input class="form-control" type="text">
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-4">
+                              <label for="inputEmail4">STREET *</label>
+                              <input class="form-control" id="inputEmail4" type="text">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">STREET NUMBER</label>
+                              <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">CITY *</label>
+                              <input class="form-control" type="text">
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-4">
+                              <label for="inputEmail4">STATE</label>
+                              <input class="form-control" id="inputEmail4" type="text">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">POSTAL CODE *</label>
+                              <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">COUNTRY *</label>
+                              <input class="form-control" type="text">
+                            </div>
+                          </div>
+                          <div class="section-title">
+                            <h5>Choose payment method</h5>
+                          </div>
+                          <div class="payment-img">
+                            <div class="row">
+                              <div class="col-md-4"><a href="#">
+                                  <div class="img"><img src="./img/cash1.png" alt=""></div>
+                                </a></div>
+                              <div class="col-md-4"><a href="#">
+                                  <div class="img"><img src="./img/cash2.png" alt=""></div>
+                                </a></div>
+                              <div class="col-md-4"><a href="#">
+                                  <div class="img"><img src="./img/cash3.png" alt=""></div>
+                                </a></div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <input class="next action-button" type="button" name="next" value="Next">
-                  <input class="previous action-button-previous" type="button" name="previous" value="Previous">
-                </fieldset>
-                <fieldset>
-                  <div id="third-stage">
-                    <div class="form-card">
-                      <div class="row">
-                        <div class="col-md-3 height">
-                          <div class="fixed-pos">
-                            <div class="rSide">
+                </div>
+                <input class="next action-button" type="button" name="next" value="Next">
+                <input class="previous action-button-previous" type="button" name="previous" value="Previous">
+              </fieldset>
+              <fieldset>
+                <div id="last-stage">
+                  <div class="form-card">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="fixed-pos">
+                          <div class="rSide">
+                            <h5 class="titlePayment">Contact & Billing Info</h5>
+                            <div class="col-two">
                               <div class="f-details">
-                                <h6 class="title">Summary</h6>
-                                <p class="small">SERVICE TYPE</p>
-                                <p class="mediam">Hourly</p>
+                                <p class="small">FIRST NAME</p>
+                                <p class="mediam">tony</p>
                               </div>
                               <div class="f-details">
-                                <p class="small">FROM - TO</p>
-                                <p class="mediam">Cairo, Egypt - Cairo Festival City, Nasr City, Egypt</p>
-                              </div>
-                              <div class="f-details">
-                                <p class="small">PICKUP DATE, TIME</p>
-                                <p class="mediam">14-07-2020, 7:30</p>
-                              </div>
-                              <div class="f-details">
-                                <p class="small">EXTRA TIME</p>
-                                <p class="mediam">1 hours</p>
-                              </div>
-                              <div class="col-two">
-                                <div class="f-details">
-                                  <p class="small">TOTAL DISTANCE</p>
-                                  <p class="mediam">26.3 km</p>
-                                </div>
-                                <div class="f-details">
-                                  <p class="small">TOTAL TIME</p>
-                                  <p class="mediam">1 h 31 m</p>
-                                </div>
+                                <p class="small">LAST NAME</p>
+                                <p class="mediam">tony</p>
                               </div>
                             </div>
-                            <div class="total-invoice">
-                              <div class="col-two">
-                                <h6 class="title">Total</h6>
-                                <h6 class="title">$0.00</h6>
+                            <div class="f-details">
+                              <p class="small">E-MAIL ADDDRESS</p>
+                              <p class="mediam">tonyhero44@yahoo.com</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="fixed-pos">
+                          <div class="rSide">
+                            <h5 class="titlePayment">Method</h5>
+                            <div class="f-details">
+                              <p class="small">YOUR CHOICE</p>
+                              <p class="mediam">Cash</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="fixed-pos">
+                          <div class="map-side">
+                            <div id="googleMaps" style="width:100%;height:400px;"></div>
+                          </div>
+                          <div class="rSide">
+                            <h5 class="titlePayment">Ride details</h5>
+                            <div class="f-details">
+                              <p class="small">SERVICE TYPE</p>
+                              <p class="mediam">Distance</p>
+                            </div>
+                            <div class="f-details">
+                              <p class="small">FROM - TO</p>
+                              <p class="mediam">Cairo, Egypt - Cairo Festival City, Nasr City, Egypt</p>
+                            </div>
+                            <div class="f-details">
+                              <p class="small">PICKUP DATE, TIME</p>
+                              <p class="mediam">29-07-2020, 7:00</p>
+                            </div>
+                            <div class="f-details">
+                              <p class="small">EXTRA TIME</p>
+                              <p class="mediam">1 hours</p>
+                            </div>
+                            <div class="col-two">
+                              <div class="f-details">
+                                <p class="small">TOTAL DISTANCE</p>
+                                <p class="mediam">26.3 km</p>
                               </div>
-                              <div class="col-two">
-                                <h6 class="title">To pay <span class="small"> (30% deposit)</span></h6>
-                                <h6 class="title">$0.00</h6>
+                              <div class="f-details">
+                                <p class="small">TOTAL TIME</p>
+                                <p class="mediam">1 h 29 m</p>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-9">
-                          <div class="personal-info-form">
-                            <div class="form-title">
-                              <div class="title">
-                                <p>RIDE DETAILS</p>
-                              </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="fixed-pos">
+                          <div class="summry-img">
+                            <div class="img"><img src="./img/car.jpg" alt=""></div>
+                          </div>
+                          <div class="rSide">
+                            <h5 class="titlePayment">Vehicle info</h5>
+                            <div class="f-details">
+                              <p class="small">VEHICLE</p>
+                              <p class="mediam">Mercedes-Benz E220</p>
                             </div>
-                            <div class="form-row">
-                              <div class="form-group col-md-6">
-                                <label for="inputEmail4">FIRST NAME * </label>
-                                <input class="form-control" type="text">
-                              </div>
-                              <div class="form-group col-md-6">
-                                <label for="inputPassword4">LAST NAME *</label>
-                                <input class="form-control" type="text">
-                              </div>
+                          </div>
+                          <div class="total-invoice">
+                            <div class="col-two">
+                              <h6 class="title">Extra time</h6>
+                              <h6 class="title">$0.00</h6>
                             </div>
-                            <div class="form-row">
-                              <div class="form-group col-md-6">
-                                <label for="inputEmail4">E-MAIL ADDRESS *</label>
-                                <input class="form-control" id="inputEmail4" type="text">
-                              </div>
-                              <div class="form-group col-md-6">
-                                <label for="inputPassword4">PHONE NUMBER</label>
-                                <input class="form-control" type="text">
-                              </div>
+                            <div class="col-two">
+                              <h6 class="title">Selected vehicle</h6>
+                              <h6 class="title">$0.00</h6>
                             </div>
-                            <div class="form-row">
-                              <div class="form-group col-md-12">
-                                <label for="inputEmail4">COMMENTS</label>
-                                <input class="form-control" type="text">
-                              </div>
+                          </div>
+                          <div class="total-invoice">
+                            <div class="col-two">
+                              <h6 class="title">Total</h6>
+                              <h6 class="title">$0.00</h6>
                             </div>
-                            <div class="form-title">
-                              <div class="title">
-                                <p>BILLING ADDRESS</p>
-                              </div>
-                            </div>
-                            <div class="form-row">
-                              <div class="form-group col-md-6">
-                                <label for="inputEmail4">FIRST NAME * </label>
-                                <input class="form-control" type="text">
-                              </div>
-                              <div class="form-group col-md-6">
-                                <label for="inputPassword4">TAX NUMBER</label>
-                                <input class="form-control" type="text">
-                              </div>
-                            </div>
-                            <div class="form-row">
-                              <div class="form-group col-md-4">
-                                <label for="inputEmail4">STREET *</label>
-                                <input class="form-control" id="inputEmail4" type="text">
-                              </div>
-                              <div class="form-group col-md-4">
-                                <label for="inputPassword4">STREET NUMBER</label>
-                                <input class="form-control" type="text">
-                              </div>
-                              <div class="form-group col-md-4">
-                                <label for="inputPassword4">CITY *</label>
-                                <input class="form-control" type="text">
-                              </div>
-                            </div>
-                            <div class="form-row">
-                              <div class="form-group col-md-4">
-                                <label for="inputEmail4">STATE</label>
-                                <input class="form-control" id="inputEmail4" type="text">
-                              </div>
-                              <div class="form-group col-md-4">
-                                <label for="inputPassword4">POSTAL CODE *</label>
-                                <input class="form-control" type="text">
-                              </div>
-                              <div class="form-group col-md-4">
-                                <label for="inputPassword4">COUNTRY *</label>
-                                <input class="form-control" type="text">
-                              </div>
-                            </div>
-                            <div class="section-title">
-                              <h5>Choose payment method</h5>
-                            </div>
-                            <div class="payment-img">
-                              <div class="row">
-                                <div class="col-md-4"><a href="#">
-                                    <div class="img"><img src="./img/cash1.png" alt=""></div></a></div>
-                                <div class="col-md-4"><a href="#">
-                                    <div class="img"><img src="./img/cash2.png" alt=""></div></a></div>
-                                <div class="col-md-4"><a href="#">
-                                    <div class="img"><img src="./img/cash3.png" alt=""></div></a></div>
-                              </div>
+                            <div class="col-two">
+                              <h6 class="title">To pay <span class="small"> (30% deposit)</span></h6>
+                              <h6 class="title">$0.00</h6>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <input class="next action-button" type="button" name="next" value="Next">
-                  <input class="previous action-button-previous" type="button" name="previous" value="Previous">
-                </fieldset>
-                <fieldset>
-                  <div id="last-stage">
-                    <div class="form-card">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="fixed-pos">
-                            <div class="rSide">
-                              <h5 class="titlePayment">Contact & Billing Info</h5>
-                              <div class="col-two">
-                                <div class="f-details">
-                                  <p class="small">FIRST NAME</p>
-                                  <p class="mediam">tony</p>
-                                </div>
-                                <div class="f-details">
-                                  <p class="small">LAST NAME</p>
-                                  <p class="mediam">tony</p>
-                                </div>
-                              </div>
-                              <div class="f-details">
-                                <p class="small">E-MAIL ADDDRESS</p>
-                                <p class="mediam">tonyhero44@yahoo.com</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="divider"></div>
-                          <div class="fixed-pos">
-                            <div class="rSide">
-                              <h5 class="titlePayment">Method</h5>
-                              <div class="f-details">
-                                <p class="small">YOUR CHOICE</p>
-                                <p class="mediam">Cash</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="fixed-pos">
-                            <div class="map-side">
-                              <div id="googleMaps" style="width:100%;height:400px;"></div>
-                            </div>
-                            <div class="rSide">
-                              <h5 class="titlePayment">Ride details</h5>
-                              <div class="f-details">
-                                <p class="small">SERVICE TYPE</p>
-                                <p class="mediam">Distance</p>
-                              </div>
-                              <div class="f-details">
-                                <p class="small">FROM - TO</p>
-                                <p class="mediam">Cairo, Egypt - Cairo Festival City, Nasr City, Egypt</p>
-                              </div>
-                              <div class="f-details">
-                                <p class="small">PICKUP DATE, TIME</p>
-                                <p class="mediam">29-07-2020, 7:00</p>
-                              </div>
-                              <div class="f-details">
-                                <p class="small">EXTRA TIME</p>
-                                <p class="mediam">1 hours</p>
-                              </div>
-                              <div class="col-two">
-                                <div class="f-details">
-                                  <p class="small">TOTAL DISTANCE</p>
-                                  <p class="mediam">26.3 km</p>
-                                </div>
-                                <div class="f-details">
-                                  <p class="small">TOTAL TIME</p>
-                                  <p class="mediam">1 h 29 m</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="fixed-pos">
-                            <div class="summry-img">
-                              <div class="img"><img src="./img/car.jpg" alt=""></div>
-                            </div>
-                            <div class="rSide">
-                              <h5 class="titlePayment">Vehicle info</h5>
-                              <div class="f-details">
-                                <p class="small">VEHICLE</p>
-                                <p class="mediam">Mercedes-Benz E220</p>
-                              </div>
-                            </div>
-                            <div class="total-invoice">
-                              <div class="col-two">
-                                <h6 class="title">Extra time</h6>
-                                <h6 class="title">$0.00</h6>
-                              </div>
-                              <div class="col-two">
-                                <h6 class="title">Selected vehicle</h6>
-                                <h6 class="title">$0.00</h6>
-                              </div>
-                            </div>
-                            <div class="total-invoice">
-                              <div class="col-two">
-                                <h6 class="title">Total</h6>
-                                <h6 class="title">$0.00</h6>
-                              </div>
-                              <div class="col-two">
-                                <h6 class="title">To pay <span class="small"> (30% deposit)</span></h6>
-                                <h6 class="title">$0.00</h6>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <input class="next action-button" type="button" name="next" value="Submit">
-                  <input class="previous action-button-previous" type="button" name="previous" value="Previous">
-                </fieldset>
-              </form>
-            </div>
+                </div>
+                <input class="next action-button" type="button" name="next" value="Submit">
+                <input class="previous action-button-previous" type="button" name="previous" value="Previous">
+              </fieldset>
+            </form>
           </div>
         </div>
       </div>
     </div>
-    <script src="js/jquery-3.5.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/fontawesome.js"></script>
-    <script src="js/main.js"></script><script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNzTcMULRgUpe93sR2oVTQCpwhHqnIfU&callback=myMap"></script>
-  </body>
+  </div>
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/fontawesome.js"></script>
+  <script src="js/main.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNzTcMULRgUpe93sR2oVTQCpwhHqnIfU&callback=myMap&library=places"></script>
+</body>
+
 </html>
