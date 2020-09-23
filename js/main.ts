@@ -346,7 +346,7 @@ function createWaypointInput() {
   const newbtn = document.createElement("button");
   newbtn.setAttribute("class", "pickup-button");
   newbtn.innerText = "+";
-  $(newbtn).click(function (e) {
+  $(newbtn).on("click", function (e) {
     e.preventDefault();
     createWaypointInput();
   });
@@ -356,7 +356,7 @@ function createWaypointInput() {
   deleteWatpoint.setAttribute("class", "pickup-button delete-waypoint");
   deleteWatpoint.innerText = "-";
 
-  $(deleteWatpoint).click(function (e) {
+  $(deleteWatpoint).on("click", function (e) {
     e.preventDefault();
     newInputContainer.remove();
     for (var i = 0; i < waypointInputs.length; i++) {
@@ -401,6 +401,17 @@ function changeMode(mode:string) {
   if (mode == "distance" && pageMode == "hourly") {
     const e = $("#inputAdress-input");
     e.append(`<button role="button" class="pickup-button" id="add-waypoint">+</button>`);
+    
+    const btn = $("#add-waypoint")
+    $(btn).on("click", function (e) {
+      e.preventDefault();
+      createWaypointInput();
+    });
+
+    console.log("is this btn");
+    console.log(btn);
+    
+    
   }
   pageMode = mode;
 
