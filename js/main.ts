@@ -166,37 +166,45 @@ function initMap() {
     } //Egypt.
   });
 
-  this.directionsService = new google.maps.DirectionsService;
-  this.directionsRenderer = new google.maps.DirectionsRenderer({
+  directionsService = new google.maps.DirectionsService;
+  directionsRenderer = new google.maps.DirectionsRenderer({
     draggable: true,
     map: this.map,
     panel: document.getElementById('right-panel')
   });
 
-  this.directionsRenderer.addListener('directions_changed', function () {
-    computeTotalDistance(this.directionsRenderer.getDirections());
+  directionsRenderer.addListener('directions_changed', function () {
+    computeTotalDistance(directionsRenderer.getDirections());
   });
 
   originInput = document.getElementById("inputAddress");
   destInput = document.getElementById("inputAddress2");
   initOrigDestsAutocompelete();
-  // displayRoute();
-
 }
 var originInput;
 var destInput;
-var directionsService;
-
+var directionsService: google.maps.DirectionsService;
+var directionsRenderer: google.maps.DirectionsRenderer;
 function displayRoute() {
-  this.directionsService.route({
+  let wayponints:any = [...waypointInputs];
+  wayponints=wayponints.map(e=>{
+    if (e.place) {      
+      let lat = e.place.geometry.location.lat();
+      let lng = e.place.geometry.location.lng();
+      return {
+        location:lat + ", " + lng
+      }
+    }
+  })
+  directionsService.route({
     origin: {
       placeId: this.originPlaceId
     },
-    waypoints: waypointPlaceIds.length?waypointPlaceIds:null,
+    waypoints: wayponints?wayponints:null,
     destination: {
       placeId: this.destinationPlaceId
     }, // waypoints,
-    travelMode: 'DRIVING',
+    travelMode: google.maps.TravelMode.DRIVING,
     avoidTolls: false
   }, function (response, status) {
     if (status === 'OK') {
@@ -219,16 +227,15 @@ function computeTotalDistance(result) {
 
 function initWaypointsAutocompelete() {
   for (let i = 0; i < waypointInputs.length; i++) {
-    const input = waypointInputs[i];
+    const waypoint = waypointInputs[i];
+    const input = waypoint.input;
     const inputAutocomplete = new google.maps.places.Autocomplete(input);
-    inputAutocomplete.setFields(["place_id"]);
     inputAutocomplete.addListener("place_changed", () => {
       const place = inputAutocomplete.getPlace();
-      let waypointObj = {
-        placeId : place.place_id
+      waypoint.place = place;
+      if (this.originPlaceId && this.destinationPlaceId) {
+        displayRoute();
       }
-      waypointPlaceIds.push(waypointObj);
-      this.displayRoute();
     });
   }
 }
@@ -267,15 +274,17 @@ function setupPlaceChangedListener(autocomplete, mode) {
       this.destinationPlaceId = place.place_id;
     }
     if (this.originPlaceId && this.destinationPlaceId) {
-      this.displayRoute();
+      displayRoute();
     }
   });
 }
 
 // waypoint inputs logic
 var waypointID = 0;
-var waypointInputs = [];
-var waypointPlaceIds = [];
+var waypointInputs:[{
+  input?:HTMLInputElement,
+  place?:any
+}] = [] as any;
 
 function initAddWaypointButton() {
   const btn = $("#add-waypoint");
@@ -320,13 +329,13 @@ function createWaypointInput() {
   $(deleteWatpoint).click(function (e) {
     e.preventDefault();
     newInputContainer.remove();
-    let removed = waypointInputs.indexOf(newInput);
     for (var i = 0; i < waypointInputs.length; i++) {
-      if (waypointInputs[i] === newInput) {
+      if (waypointInputs[i].input === newInput) {
         waypointInputs.splice(i, 1);
         break;
       }
     }
+    displayRoute();
   });
 
 
@@ -337,7 +346,10 @@ function createWaypointInput() {
   newInputContainer.append(newbtn);
 
   waypointID++;
-  waypointInputs.push(newInput);
+  let waypointObj = {
+    input:newInput
+  }
+  waypointInputs.push(waypointObj);
   initWaypointsAutocompelete();
 }
 initAddWaypointButton();

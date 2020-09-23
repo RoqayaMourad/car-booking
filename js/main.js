@@ -112,33 +112,43 @@ function initMap() {
             lng: 30.8025
         } //Egypt.
     });
-    this.directionsService = new google.maps.DirectionsService;
-    this.directionsRenderer = new google.maps.DirectionsRenderer({
+    directionsService = new google.maps.DirectionsService;
+    directionsRenderer = new google.maps.DirectionsRenderer({
         draggable: true,
         map: this.map,
         panel: document.getElementById('right-panel')
     });
-    this.directionsRenderer.addListener('directions_changed', function () {
-        computeTotalDistance(this.directionsRenderer.getDirections());
+    directionsRenderer.addListener('directions_changed', function () {
+        computeTotalDistance(directionsRenderer.getDirections());
     });
     originInput = document.getElementById("inputAddress");
     destInput = document.getElementById("inputAddress2");
     initOrigDestsAutocompelete();
-    // displayRoute();
 }
 var originInput;
 var destInput;
 var directionsService;
+var directionsRenderer;
 function displayRoute() {
-    this.directionsService.route({
+    var wayponints = waypointInputs.slice();
+    wayponints = wayponints.map(function (e) {
+        if (e.place) {
+            var lat = e.place.geometry.location.lat();
+            var lng = e.place.geometry.location.lng();
+            return {
+                location: lat + ", " + lng
+            };
+        }
+    });
+    directionsService.route({
         origin: {
             placeId: this.originPlaceId
         },
-        waypoints: waypointPlaceIds.length ? waypointPlaceIds : null,
+        waypoints: wayponints ? wayponints : null,
         destination: {
             placeId: this.destinationPlaceId
         },
-        travelMode: 'DRIVING',
+        travelMode: google.maps.TravelMode.DRIVING,
         avoidTolls: false
     }, function (response, status) {
         if (status === 'OK') {
@@ -161,16 +171,15 @@ function computeTotalDistance(result) {
 function initWaypointsAutocompelete() {
     var _this = this;
     var _loop_1 = function (i) {
-        var input = waypointInputs[i];
+        var waypoint = waypointInputs[i];
+        var input = waypoint.input;
         var inputAutocomplete = new google.maps.places.Autocomplete(input);
-        inputAutocomplete.setFields(["place_id"]);
         inputAutocomplete.addListener("place_changed", function () {
             var place = inputAutocomplete.getPlace();
-            var waypointObj = {
-                placeId: place.place_id
-            };
-            waypointPlaceIds.push(waypointObj);
-            _this.displayRoute();
+            waypoint.place = place;
+            if (_this.originPlaceId && _this.destinationPlaceId) {
+                displayRoute();
+            }
         });
     };
     for (var i = 0; i < waypointInputs.length; i++) {
@@ -203,14 +212,13 @@ function setupPlaceChangedListener(autocomplete, mode) {
             _this.destinationPlaceId = place.place_id;
         }
         if (_this.originPlaceId && _this.destinationPlaceId) {
-            _this.displayRoute();
+            displayRoute();
         }
     });
 }
 // waypoint inputs logic
 var waypointID = 0;
 var waypointInputs = [];
-var waypointPlaceIds = [];
 function initAddWaypointButton() {
     var btn = $("#add-waypoint");
     btn.click(function (e) {
@@ -247,13 +255,13 @@ function createWaypointInput() {
     $(deleteWatpoint).click(function (e) {
         e.preventDefault();
         newInputContainer.remove();
-        var removed = waypointInputs.indexOf(newInput);
         for (var i = 0; i < waypointInputs.length; i++) {
-            if (waypointInputs[i] === newInput) {
+            if (waypointInputs[i].input === newInput) {
                 waypointInputs.splice(i, 1);
                 break;
             }
         }
+        displayRoute();
     });
     originaInput.parentElement.parentElement.append(newInputContainer);
     newInputContainer.append(newLabel);
@@ -261,7 +269,10 @@ function createWaypointInput() {
     newInputContainer.append(deleteWatpoint);
     newInputContainer.append(newbtn);
     waypointID++;
-    waypointInputs.push(newInput);
+    var waypointObj = {
+        input: newInput
+    };
+    waypointInputs.push(waypointObj);
     initWaypointsAutocompelete();
 }
 initAddWaypointButton();
