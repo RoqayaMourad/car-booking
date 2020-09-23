@@ -120,6 +120,7 @@ function initMap() {
     });
     directionsRenderer.addListener('directions_changed', function () {
         computeTotalDistance(directionsRenderer.getDirections());
+        computeTotalTime(directionsRenderer.getDirections());
     });
     originInput = document.getElementById("inputAddress");
     destInput = document.getElementById("inputAddress2");
@@ -166,7 +167,29 @@ function computeTotalDistance(result) {
         total += myroute.legs[i].distance.value;
     }
     total = total / 1000;
-    document.getElementById('total').innerHTML = total + ' km';
+    document.getElementById('distance-result').innerText = total + ' km';
+}
+function computeTotalTime(result) {
+    var total = 0;
+    var myroute = result.routes[0];
+    for (var i = 0; i < myroute.legs.length; i++) {
+        total += myroute.legs[i].duration.value;
+    }
+    var totalObj = secondsToTime(total);
+    document.getElementById('time-result').innerHTML = totalObj.h + "h " + totalObj.m + "m";
+}
+function secondsToTime(secs) {
+    var hours = Math.floor(secs / (60 * 60));
+    var divisor_for_minutes = secs % (60 * 60);
+    var minutes = Math.floor(divisor_for_minutes / 60);
+    var divisor_for_seconds = divisor_for_minutes % 60;
+    var seconds = Math.ceil(divisor_for_seconds);
+    var obj = {
+        "h": hours,
+        "m": minutes,
+        "s": seconds
+    };
+    return obj;
 }
 function initWaypointsAutocompelete() {
     var _this = this;
