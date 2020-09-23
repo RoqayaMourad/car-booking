@@ -104,6 +104,16 @@ $(document).ready(function () {
 });
 /////////////////////////////////////////////////////////////////
 var map;
+var originPlaceId;
+var destinationPlaceId;
+// waypoint inputs logic
+var waypointID = 0;
+var waypointInputs = [];
+var originInput;
+var destInput;
+var directionsService;
+var directionsRenderer;
+var pageMode = "distance";
 function initMap() {
     this.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
@@ -126,10 +136,6 @@ function initMap() {
     destInput = document.getElementById("inputAddress2");
     initOrigDestsAutocompelete();
 }
-var originInput;
-var destInput;
-var directionsService;
-var directionsRenderer;
 function displayRoute() {
     var wayponints = waypointInputs.slice();
     wayponints = wayponints.map(function (e) {
@@ -217,8 +223,6 @@ function initOrigDestsAutocompelete() {
     destAutocomplete.setFields(["place_id"]);
     setupPlaceChangedListener(destAutocomplete, "DEST");
 }
-var originPlaceId;
-var destinationPlaceId;
 function setupPlaceChangedListener(autocomplete, mode) {
     var _this = this;
     autocomplete.bindTo("bounds", this.map);
@@ -239,9 +243,6 @@ function setupPlaceChangedListener(autocomplete, mode) {
         }
     });
 }
-// waypoint inputs logic
-var waypointID = 0;
-var waypointInputs = [];
 function initAddWaypointButton() {
     var btn = $("#add-waypoint");
     btn.click(function (e) {
@@ -299,4 +300,22 @@ function createWaypointInput() {
     initWaypointsAutocompelete();
 }
 initAddWaypointButton();
+function resetConsistannt() {
+    waypointID = 0;
+    waypointInputs = [];
+    originPlaceId = null;
+    $(".inputAdress-waypoint").remove();
+}
+function changeMode(mode) {
+    console.log("mode changed");
+    resetConsistannt();
+    if (mode == "hourly") {
+        $("#add-waypoint").remove();
+    }
+    if (mode == "distance" && pageMode == "hourly") {
+        var e = $("#inputAdress-input");
+        e.append("<button role=\"button\" class=\"pickup-button\" id=\"add-waypoint\">+</button>");
+    }
+    pageMode = mode;
+}
 //# sourceMappingURL=main.js.map

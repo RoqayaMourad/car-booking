@@ -32,8 +32,8 @@
                   <div class="row">
                     <div class="col-md-6">
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Distance</a></li>
-                        <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hourly</a></li>
+                        <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="changeMode('distance')">Distance</a></li>
+                        <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"  onclick="changeMode('hourly')">Hourly</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Flat rate</a></li> -->
                       </ul>
                       <div class="tab-content" id="myTabContent">
@@ -56,7 +56,7 @@
                             </div>
                             <!-- Pickup location -->
                             <div class="form-group">
-                              <div class="inputAdress-input">
+                              <div class="inputAdress-input" id="inputAdress-input">
                                 <label for="inputAddress">Pickup Location</label>
                                 <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
                                 <button role="button" class="pickup-button" id="add-waypoint">+</button>
@@ -84,92 +84,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                          <div class="distance-tap">
-                            <div class="title">
-                              <p>RIDE DETAILS</p>
-                            </div>
-                          </div>
-                          <div class="form">
-                            <div class="form-row">
-                              <div class="form-group col-md-6">
-                                <label for="inputEmail4">Pickup Date</label>
-                                <input class="form-control" id="inputEmail4" type="text">
-                              </div>
-                              <div class="form-group col-md-6">
-                                <label for="inputPassword4">Pickup Time</label>
-                                <input class="form-control" id="inputPassword4" type="text">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputAddress">Pickup Location</label>
-                              <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
-                            </div>
-                            <div class="form-group">
-                              <label for="inputAddress2">Drop-off-location</label>
-                              <input class="form-control" id="inputAddress2" type="text" placeholder="Enter a location">
-                            </div>
-                            <div class="distance-tap">
-                              <div class="title">
-                                <p>EXTRA OPTIONS</p>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputState">EXTRA TIME </label>
-                              <select class="form-control" id="inputState">
-                                <option selected="">0 hour(s)</option>
-                                <option>1 hour(s)</option>
-                                <option>2 hour(s)</option>
-                                <option>3 hour(s)</option>
-                                <option>4 hour(s)</option>
-                                <option>5 hour(s)</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                          <div class="distance-tap">
-                            <div class="title">
-                              <p>RIDE DETAILS</p>
-                            </div>
-                          </div>
-                          <div class="form">
-                            <div class="form-row">
-                              <div class="form-group col-md-6">
-                                <label for="inputEmail4">Pickup Date</label>
-                                <input class="form-control" id="inputEmail4" type="text">
-                              </div>
-                              <div class="form-group col-md-6">
-                                <label for="inputPassword4">Pickup Time</label>
-                                <input class="form-control" id="inputPassword4" type="text">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputAddress">Pickup Location</label>
-                              <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
-                            </div>
-                            <div class="form-group">
-                              <label for="inputAddress2">Drop-off-location</label>
-                              <input class="form-control" id="inputAddress2" type="text" placeholder="Enter a location">
-                            </div>
-                            <div class="distance-tap">
-                              <div class="title">
-                                <p>EXTRA OPTIONS</p>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputState">EXTRA TIME </label>
-                              <select class="form-control" id="inputState">
-                                <option selected="">0 hour(s)</option>
-                                <option>1 hour(s)</option>
-                                <option>2 hour(s)</option>
-                                <option>3 hour(s)</option>
-                                <option>4 hour(s)</option>
-                                <option>5 hour(s)</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
+
                       </div>
                     </div>
                     <div class="col-md-6">

@@ -1,4 +1,3 @@
-declare var $;
 $(document).ready(function () {
 
   // navBar
@@ -157,6 +156,23 @@ $(document).ready(function () {
 
 var map: google.maps.Map<HTMLElement>
 
+var originPlaceId;
+
+var destinationPlaceId;
+// waypoint inputs logic
+var waypointID = 0;
+var waypointInputs:[{
+  input?:HTMLInputElement,
+  place?:any
+}] = [] as any;
+var originInput;
+var destInput;
+var directionsService: google.maps.DirectionsService;
+var directionsRenderer: google.maps.DirectionsRenderer;
+
+var pageMode = "distance";
+
+
 function initMap() {
   this.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 6,
@@ -183,10 +199,6 @@ function initMap() {
   destInput = document.getElementById("inputAddress2");
   initOrigDestsAutocompelete();
 }
-var originInput;
-var destInput;
-var directionsService: google.maps.DirectionsService;
-var directionsRenderer: google.maps.DirectionsRenderer;
 function displayRoute() {
   let wayponints:any = [...waypointInputs];
   wayponints=wayponints.map(e=>{
@@ -268,7 +280,6 @@ function initWaypointsAutocompelete() {
   }
 }
 
-
 function initOrigDestsAutocompelete() {
   const originAutocomplete = new google.maps.places.Autocomplete(originInput);
   originAutocomplete.setFields(["place_id"]);
@@ -281,9 +292,6 @@ function initOrigDestsAutocompelete() {
 
 }
 
-var originPlaceId;
-
-var destinationPlaceId;
 
 function setupPlaceChangedListener(autocomplete, mode) {
   autocomplete.bindTo("bounds", this.map);
@@ -307,12 +315,6 @@ function setupPlaceChangedListener(autocomplete, mode) {
   });
 }
 
-// waypoint inputs logic
-var waypointID = 0;
-var waypointInputs:[{
-  input?:HTMLInputElement,
-  place?:any
-}] = [] as any;
 
 function initAddWaypointButton() {
   const btn = $("#add-waypoint");
@@ -382,3 +384,24 @@ function createWaypointInput() {
 }
 initAddWaypointButton();
 
+function resetConsistannt(){
+  waypointID = 0;
+  waypointInputs = [] as any;
+  originPlaceId = null;
+  $(".inputAdress-waypoint").remove();
+
+}
+
+function changeMode(mode:string) {
+  console.log("mode changed");
+  resetConsistannt();
+  if (mode == "hourly") {
+    $("#add-waypoint").remove();
+  }
+  if (mode == "distance" && pageMode == "hourly") {
+    const e = $("#inputAdress-input");
+    e.append(`<button role="button" class="pickup-button" id="add-waypoint">+</button>`);
+  }
+  pageMode = mode;
+
+}
