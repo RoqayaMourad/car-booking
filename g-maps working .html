@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #map {
+            height: 500px;
+            width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="total" class=""></div>
+
+
+
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 6,
+                center: {
+                    lat: 26.8206,
+                    lng: 30.8025
+                } //Egypt.
+            });
+
+            var directionsService = new google.maps.DirectionsService;
+            var directionsRenderer = new google.maps.DirectionsRenderer({
+                draggable: true,
+                map: map,
+                panel: document.getElementById('right-panel')
+            });
+
+            directionsRenderer.addListener('directions_changed', function() {
+                computeTotalDistance(directionsRenderer.getDirections());
+            });
+
+            displayRoute('Egypt,cairo', 'Egypt,Alexandria', directionsService,
+                directionsRenderer);
+        }
+
+        function displayRoute(origin, destination, service, display) {
+            service.route({
+                origin: origin,
+                destination: destination,
+                waypoints: [{
+                    location: new google.maps.LatLng(30.7865, 31.0004),
+                }, {
+                    location: 'Egypt,damanhour'
+                }, {
+                    location: 'Egypt,idku'
+                }],
+                travelMode: 'DRIVING',
+                avoidTolls: true
+            }, function(response, status) {
+                if (status === 'OK') {
+                    display.setDirections(response);
+                } else {
+                    alert('Could not display directions due to: ' + status);
+                }
+            });
+        }
+
+        function computeTotalDistance(result) {
+            var total = 0;
+            var myroute = result.routes[0];
+            for (var i = 0; i < myroute.legs.length; i++) {
+                total += myroute.legs[i].distance.value;
+            }
+            total = total / 1000;
+            document.getElementById('total').innerHTML = total + ' km';
+        }
+    </script>
+
+
+
+
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNzTcMULRgUpe93sR2oVTQCpwhHqnIfU&callback=initMap">
+    </script>
+</body>
+
+</html>
