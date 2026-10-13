@@ -1,3 +1,5 @@
+declare var $: any;
+
 $(document).ready(function () {
 
   // navBar
@@ -43,7 +45,229 @@ $(document).ready(function () {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
+// Demo data: the booking form works without a map service or a backend.
+// Locations, distances, times and prices below are sample values.
 
+var demoLocations = [
+  "Cairo International Airport",
+  "Downtown Cairo",
+  "Cairo Festival City",
+  "Giza Pyramids",
+  "Maadi",
+  "6th of October City"
+];
+
+// sample road distance in km between two locations, by their position in the list above
+var demoDistances = {
+  "0-1": 22, "0-2": 14, "0-3": 38, "0-4": 30, "0-5": 55,
+  "1-2": 20, "1-3": 14, "1-4": 12, "1-5": 32,
+  "2-3": 34, "2-4": 18, "2-5": 52,
+  "3-4": 16, "3-5": 22,
+  "4-5": 38
+};
+
+// sample travel time: 2 minutes per km
+var demoMinutesPerKm = 2;
+
+// demo prices
+var demoVehicles = {
+  economy: { name: "Mercedes-Benz E220 Economy", perKm: 0.8, perHour: 20 },
+  business: { name: "Mercedes-Benz E220 Business", perKm: 1.1, perHour: 28 },
+  first: { name: "Mercedes-Benz E220 First Class", perKm: 1.5, perHour: 40 }
+};
+var demoBaseFare = 5;       // added to every distance ride
+var demoExtraHourPrice = 10; // each extra waiting hour on a distance ride
+var demoDepositRate = 0.3;   // 30% deposit
+
+var pageMode = "distance";
+
+function formatMoney(amount) {
+  return "$" + amount.toFixed(2);
+}
+
+function formatTime(minutes) {
+  return Math.floor(minutes / 60) + "h " + (minutes % 60) + "m";
+}
+
+// 2026-11-01 -> 01-11-2026
+function formatDate(value) {
+  var parts = value.split("-");
+  return parts.length === 3 ? parts[2] + "-" + parts[1] + "-" + parts[0] : value;
+}
+
+function fillLocationSelect(select, placeholder) {
+  select.innerHTML = "";
+  var first = document.createElement("option");
+  first.value = "";
+  first.textContent = placeholder;
+  select.appendChild(first);
+  demoLocations.forEach(function (name, index) {
+    var option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = name;
+    select.appendChild(option);
+  });
+}
+
+function getInput(id) {
+  return document.getElementById(id) as any;
+}
+
+// read the ride details from step 1 and work out the sample distance and time
+function getRide() {
+  var pickup = getInput("pickup-location").value;
+  var dropoff = getInput("dropoff-location").value;
+  var ride = {
+    mode: pageMode,
+    date: getInput("pickup-date").value,
+    time: getInput("pickup-time").value,
+    pickup: pickup,
+    dropoff: dropoff,
+    pickupName: pickup === "" ? "" : demoLocations[Number(pickup)],
+    dropoffName: dropoff === "" ? "" : demoLocations[Number(dropoff)],
+    hours: Number(getInput("duration-hours").value),
+    extraHours: Number(getInput("extra-time").value),
+    distanceKm: 0,
+    minutes: 0
+  };
+
+  if (ride.mode === "hourly") {
+    ride.minutes = ride.hours * 60;
+  } else if (pickup !== "" && dropoff !== "" && pickup !== dropoff) {
+    var a = Math.min(Number(pickup), Number(dropoff));
+    var b = Math.max(Number(pickup), Number(dropoff));
+    ride.distanceKm = demoDistances[a + "-" + b];
+    ride.minutes = ride.distanceKm * demoMinutesPerKm;
+  }
+  return ride;
+}
+
+// demo price for one vehicle
+function getPrice(vehicleId, ride) {
+  var vehicle = demoVehicles[vehicleId];
+  var vehiclePrice = 0;
+  var extraPrice = 0;
+  if (ride.mode === "hourly") {
+    vehiclePrice = vehicle.perHour * ride.hours;
+  } else {
+    vehiclePrice = demoBaseFare + vehicle.perKm * ride.distanceKm;
+    extraPrice = demoExtraHourPrice * ride.extraHours;
+  }
+  var total = vehiclePrice + extraPrice;
+  return {
+    vehiclePrice: vehiclePrice,
+    extraPrice: extraPrice,
+    total: total,
+    deposit: total * demoDepositRate
+  };
+}
+
+function getSelectedVehicle() {
+  var checked = document.querySelector('input[name="product"]:checked') as any;
+  return checked ? checked.value : "";
+}
+
+// step 1: the route summary shown in place of the map
+function updateRoutePanel() {
+  var ride = getRide();
+  document.getElementById("route-from").textContent = ride.pickupName || "Choose a pickup location";
+  if (ride.mode === "hourly") {
+    document.getElementById("route-to-label").textContent = "DURATION";
+    document.getElementById("route-to").textContent = ride.hours + " hour(s) with the driver";
+    document.getElementById("distance-result").textContent = "Not used";
+  } else {
+    document.getElementById("route-to-label").textContent = "TO";
+    document.getElementById("route-to").textContent = ride.dropoffName || "Choose a drop-off location";
+    document.getElementById("distance-result").textContent = ride.distanceKm + " km";
+  }
+  document.getElementById("time-result").textContent = formatTime(ride.minutes);
+}
+
+// fill every summary panel and the vehicle prices from what was entered
+function updateSummary() {
+  var ride = getRide();
+  var vehicleId = getSelectedVehicle();
+  var price = vehicleId ? getPrice(vehicleId, ride) : { vehiclePrice: 0, extraPrice: 0, total: 0, deposit: 0 };
+  var hourly = ride.mode === "hourly";
+
+  var values = {
+    service: hourly ? "Hourly" : "Distance",
+    routeLabel: hourly ? "PICKUP" : "FROM - TO",
+    route: hourly ? ride.pickupName : ride.pickupName + " - " + ride.dropoffName,
+    dateTime: formatDate(ride.date) + ", " + ride.time,
+    extraLabel: hourly ? "DURATION" : "EXTRA TIME",
+    extra: (hourly ? ride.hours : ride.extraHours) + " hours",
+    distance: hourly ? "Not used" : ride.distanceKm + " km",
+    time: formatTime(ride.minutes),
+    vehicle: vehicleId ? demoVehicles[vehicleId].name : "Not selected",
+    vehiclePrice: formatMoney(price.vehiclePrice),
+    extraPrice: formatMoney(price.extraPrice),
+    total: formatMoney(price.total),
+    deposit: formatMoney(price.deposit),
+    firstName: getInput("first-name").value.trim(),
+    lastName: getInput("last-name").value.trim(),
+    email: getInput("email").value.trim(),
+    phone: getInput("phone").value.trim() || "Not given",
+    payment: (document.querySelector('input[name="payment"]:checked') as any).value
+  };
+
+  // values are added as text
+  $("[data-summary]").each(function () {
+    this.textContent = values[this.getAttribute("data-summary")];
+  });
+
+  // mark the selected vehicle card
+  $('input[name="product"]').each(function () {
+    $(this).closest(".card").toggleClass("vehicle-selected", this.checked);
+  });
+
+  // price of each vehicle for this ride
+  $("[data-price]").each(function () {
+    this.textContent = formatMoney(getPrice(this.getAttribute("data-price"), ride).total);
+  });
+}
+
+// returns a message when a step is not complete, or "" when it can continue
+function validateStep(stepIndex) {
+  var ride = getRide();
+  if (stepIndex === 0) {
+    if (ride.date === "" || ride.time === "") {
+      return "Choose a pickup date and time.";
+    }
+    if (ride.pickup === "") {
+      return "Choose a pickup location.";
+    }
+    if (ride.mode === "distance" && (ride.dropoff === "" || ride.dropoff === ride.pickup)) {
+      return "Choose a drop-off location that is different from the pickup location.";
+    }
+  }
+  if (stepIndex === 1 && getSelectedVehicle() === "") {
+    return "Select a vehicle.";
+  }
+  if (stepIndex === 2) {
+    var email = getInput("email").value.trim();
+    if (getInput("first-name").value.trim() === "" || getInput("last-name").value.trim() === "" || !/^\S+@\S+\.\S+$/.test(email)) {
+      return "Enter your first name, last name and a valid e-mail address.";
+    }
+  }
+  return "";
+}
+
+// Distance or Hourly
+function changeMode(mode: string) {
+  pageMode = mode;
+  var hourly = mode === "hourly";
+  $("#home-tab").toggleClass("active", !hourly);
+  $("#profile-tab").toggleClass("active", hourly);
+  getInput("dropoff-group").hidden = hourly;
+  getInput("extra-title").hidden = hourly;
+  getInput("extra-group").hidden = hourly;
+  getInput("duration-group").hidden = !hourly;
+  $(".step-error").text("");
+  updateRoutePanel();
+  // keep the page where it is, the tab links are not real links
+  return false;
+}
 
 
 $(document).ready(function () {
@@ -53,12 +277,31 @@ $(document).ready(function () {
   var current = 1;
   var steps : any= $("fieldset").length ;
 
+  fillLocationSelect(getInput("pickup-location"), "Choose a pickup location");
+  fillLocationSelect(getInput("dropoff-location"), "Choose a drop-off location");
+  updateRoutePanel();
+  updateSummary();
+  $("#first-stage select").on("change", updateRoutePanel);
+  $('input[name="product"]').on("change", updateSummary);
+  // a message goes away as soon as something in that step changes
+  $("fieldset").on("input change", function () {
+    $(this).find(".step-error").text("");
+  });
+
   setProgressBar(current);
 
   $(".next").click(function () {
 
     current_fs = $(this).parent();
     next_fs = $(this).parent().next();
+
+    // check this step before moving on
+    var message = validateStep($("fieldset").index(current_fs));
+    current_fs.find(".step-error").text(message);
+    if (message !== "") {
+      return;
+    }
+    updateSummary();
 
     //Add Class Active
     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
@@ -129,6 +372,27 @@ $(document).ready(function () {
     return false;
   })
 
+  // Submit: this is a demo, nothing is sent anywhere
+  $("#submit-booking").click(function () {
+    $("fieldset").stop(true, true).hide();
+    $("#booking-complete").prop("hidden", false);
+  });
+
+  // Start again: clear the form and go back to step 1
+  $("#start-again").click(function () {
+    (document.getElementById("msform") as any).reset();
+    $("#booking-complete").prop("hidden", true);
+    $("fieldset").stop(true, true).hide().css("opacity", 1);
+    $("fieldset").first().show();
+    $("#progressbar li").removeClass("active").first().addClass("active");
+    $(".step-error").text("");
+    current = 1;
+    setProgressBar(current);
+    changeMode("distance");
+    updateSummary();
+    window.scrollTo(0, 0);
+  });
+
 
 
 
@@ -150,269 +414,3 @@ $(document).ready(function () {
 
   ////////////////////end///////////
 });
-
-
-/////////////////////////////////////////////////////////////////
-
-var map: google.maps.Map<HTMLElement>
-
-var originPlaceId;
-
-var destinationPlaceId;
-// waypoint inputs logic
-var waypointID = 0;
-var waypointInputs:[{
-  input?:HTMLInputElement,
-  place?:any
-}] = [] as any;
-var originInput;
-var destInput;
-var directionsService: google.maps.DirectionsService;
-var directionsRenderer: google.maps.DirectionsRenderer;
-
-var pageMode = "distance";
-
-
-function initMap() {
-  this.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 6,
-    center: {
-      lat: 26.8206,
-      lng: 30.8025
-    } //Egypt.
-  });
-
-  directionsService = new google.maps.DirectionsService;
-  directionsRenderer = new google.maps.DirectionsRenderer({
-    draggable: true,
-    map: this.map,
-    panel: document.getElementById('right-panel')
-  });
-
-  directionsRenderer.addListener('directions_changed', function () {
-    computeTotalDistance(directionsRenderer.getDirections());
-    computeTotalTime(directionsRenderer.getDirections());
-    
-  });
-
-  originInput = document.getElementById("inputAddress");
-  destInput = document.getElementById("inputAddress2");
-  initOrigDestsAutocompelete();
-}
-function displayRoute() {
-  let wayponints:any = [...waypointInputs];
-  wayponints=wayponints.map(e=>{
-    if (e.place) {      
-      let lat = e.place.geometry.location.lat();
-      let lng = e.place.geometry.location.lng();
-      return {
-        location:lat + ", " + lng
-      }
-    }
-  })
-  directionsService.route({
-    origin: {
-      placeId: this.originPlaceId
-    },
-    waypoints: wayponints?wayponints:null,
-    destination: {
-      placeId: this.destinationPlaceId
-    }, // waypoints,
-    travelMode: google.maps.TravelMode.DRIVING,
-    avoidTolls: false
-  }, function (response, status) {
-    if (status === 'OK') {
-      this.directionsRenderer.setDirections(response);
-    } else {
-      alert('Could not display directions due to: ' + status);
-    }
-  });
-}
-
-function computeTotalDistance(result) {
-  var total = 0;
-  var myroute = result.routes[0];
-  for (var i = 0; i < myroute.legs.length; i++) {
-    total += myroute.legs[i].distance.value;
-  }
-  total = total / 1000;
-  document.getElementById('distance-result').innerText = total + ' km';
-}
-function computeTotalTime(result) {
-  var total = 0;
-  var myroute = result.routes[0];
-  for (var i = 0; i < myroute.legs.length; i++) {
-    total += myroute.legs[i].duration.value;
-  }
-  let totalObj = secondsToTime(total);
-  document.getElementById('time-result').innerHTML = `${totalObj.h}h ${totalObj.m}m`;
-}
-function secondsToTime(secs)
-{
-    var hours = Math.floor(secs / (60 * 60));
-
-    var divisor_for_minutes = secs % (60 * 60);
-    var minutes = Math.floor(divisor_for_minutes / 60);
-
-    var divisor_for_seconds = divisor_for_minutes % 60;
-    var seconds = Math.ceil(divisor_for_seconds);
-
-    var obj = {
-        "h": hours,
-        "m": minutes,
-        "s": seconds
-    };
-    return obj;
-}
-
-function initWaypointsAutocompelete() {
-  for (let i = 0; i < waypointInputs.length; i++) {
-    const waypoint = waypointInputs[i];
-    const input = waypoint.input;
-    const inputAutocomplete = new google.maps.places.Autocomplete(input);
-    inputAutocomplete.addListener("place_changed", () => {
-      const place = inputAutocomplete.getPlace();
-      waypoint.place = place;
-      if (this.originPlaceId && this.destinationPlaceId) {
-        displayRoute();
-      }
-    });
-  }
-}
-
-function initOrigDestsAutocompelete() {
-  const originAutocomplete = new google.maps.places.Autocomplete(originInput);
-  originAutocomplete.setFields(["place_id"]);
-  setupPlaceChangedListener(originAutocomplete, "ORIG")
-
-  const destAutocomplete = new google.maps.places.Autocomplete(destInput);
-  destAutocomplete.setFields(["place_id"]);
-  setupPlaceChangedListener(destAutocomplete, "DEST")
-
-
-}
-
-
-function setupPlaceChangedListener(autocomplete, mode) {
-  autocomplete.bindTo("bounds", this.map);
-  autocomplete.addListener("place_changed", () => {
-    const place = autocomplete.getPlace();
-
-    if (!place.place_id) {
-      window.alert("Please select an option from the dropdown list.");
-      return;
-    }
-
-    if (mode === "ORIG") {
-      this.originPlaceId = place.place_id;
-    }
-    if (mode === "DEST") {
-      this.destinationPlaceId = place.place_id;
-    }
-    if (this.originPlaceId && this.destinationPlaceId) {
-      displayRoute();
-    }
-  });
-}
-
-
-function initAddWaypointButton() {
-  const btn = $("#add-waypoint");
-  btn.click(function (e) {
-    e.preventDefault();
-    console.log("clicked");
-    createWaypointInput();
-  });
-}
-
-function createWaypointInput() {
-  const originaInput = document.getElementById("inputAddress");
-  const newInput = document.createElement("input");
-  newInput.setAttribute("class", "form-control pickup-input waypoint_class");
-  newInput.setAttribute("id", "waypoint_" + waypointID);
-  newInput.setAttribute("placeholder", "Enter a waypoint");
-
-  const newLabel = document.createElement("label");
-  newLabel.setAttribute("for", "waypoint_" + waypointID);
-  newLabel.innerText = "Waypoint Location";
-
-  // create input container
-  const newInputContainer = document.createElement("div");
-  newInputContainer.setAttribute("class", "form-group inputAdress-waypoint");
-  newInputContainer.setAttribute("id", "waypoint_container_" + waypointID);
-
-
-  // add waypoint button
-  const newbtn = document.createElement("button");
-  newbtn.setAttribute("class", "pickup-button");
-  newbtn.innerText = "+";
-  $(newbtn).on("click", function (e) {
-    e.preventDefault();
-    createWaypointInput();
-  });
-
-  // remove waypoint button
-  const deleteWatpoint = document.createElement("button");
-  deleteWatpoint.setAttribute("class", "pickup-button delete-waypoint");
-  deleteWatpoint.innerText = "-";
-
-  $(deleteWatpoint).on("click", function (e) {
-    e.preventDefault();
-    newInputContainer.remove();
-    for (var i = 0; i < waypointInputs.length; i++) {
-      if (waypointInputs[i].input === newInput) {
-        waypointInputs.splice(i, 1);
-        break;
-      }
-    }
-    displayRoute();
-  });
-
-
-  originaInput.parentElement.parentElement.append(newInputContainer);
-  newInputContainer.append(newLabel);
-  newInputContainer.append(newInput);
-  newInputContainer.append(deleteWatpoint);
-  newInputContainer.append(newbtn);
-
-  waypointID++;
-  let waypointObj = {
-    input:newInput
-  }
-  waypointInputs.push(waypointObj);
-  initWaypointsAutocompelete();
-}
-initAddWaypointButton();
-
-function resetConsistannt(){
-  waypointID = 0;
-  waypointInputs = [] as any;
-  originPlaceId = null;
-  $(".inputAdress-waypoint").remove();
-
-}
-
-function changeMode(mode:string) {
-  console.log("mode changed");
-  resetConsistannt();
-  if (mode == "hourly") {
-    $("#add-waypoint").remove();
-  }
-  if (mode == "distance" && pageMode == "hourly") {
-    const e = $("#inputAdress-input");
-    e.append(`<button role="button" class="pickup-button" id="add-waypoint">+</button>`);
-    
-    const btn = $("#add-waypoint")
-    $(btn).on("click", function (e) {
-      e.preventDefault();
-      createWaypointInput();
-    });
-
-    console.log("is this btn");
-    console.log(btn);
-    
-    
-  }
-  pageMode = mode;
-
-}

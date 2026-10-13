@@ -111,7 +111,7 @@
         border: 0px;
         box-shadow: none; }
     #car-booking-structre .card #first-stage .form-card #home .form .form-group .custom-select, #car-booking-structre .card #first-stage .form-card #profile .form .form-group .custom-select, #car-booking-structre .card #first-stage .form-card #contact .form .form-group .custom-select {
-      background: #fff url("https://smartthings.zendesk.com/hc/article_attachments/203195173/DropdownIcon.png") no-repeat right center;
+      background: #fff url("../img/Union 1.png") no-repeat right 16px center;
       border-radius: 0px;
       cursor: pointer;
       height: 36px;
@@ -683,4 +683,568 @@ button.pickup-button{
 }
 button.delete-waypoint{
     right: 50px;
+}
+
+/* ----- demo booking additions ----- */
+#car-booking-structre .demo-note {
+  color: #556677;
+  font-size: 14px;
+  margin-bottom: 0.5rem;
+}
+
+#car-booking-structre .step-error {
+  color: #c0392b;
+  font-weight: 600;
+  text-align: right;
+  margin: 0 5px 0 0;
+  min-height: 1.5rem;
+}
+
+/* route summary shown in place of the map */
+#car-booking-structre #map.demo-route {
+  background: #f6f6f6;
+  border: 1px solid #eaecee;
+  min-height: 320px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#car-booking-structre .demo-route .demo-route-label {
+  color: #778591;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+#car-booking-structre .demo-route .demo-route-stop {
+  display: flex;
+  align-items: flex-start;
+}
+
+#car-booking-structre .demo-route .demo-route-stop p {
+  margin: 0;
+}
+
+#car-booking-structre .demo-route .demo-route-stop .small {
+  color: #778591;
+  font-size: 12px;
+}
+
+#car-booking-structre .demo-route .demo-route-stop .mediam {
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+#car-booking-structre .demo-route .demo-route-dot {
+  flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
+  margin: 6px 1rem 0 0;
+  border: 3px solid #ff700a;
+  border-radius: 50%;
+  background: #fff;
+}
+
+#car-booking-structre .demo-route .demo-route-dot-end {
+  background: #ff700a;
+}
+
+#car-booking-structre .demo-route .demo-route-line {
+  width: 2px;
+  height: 48px;
+  margin: 4px 0 4px 6px;
+  background: #ff700a;
+}
+
+#car-booking-structre .demo-route .demo-route-note {
+  color: #556677;
+  font-size: 13px;
+  margin: 2rem 0 0;
+}
+
+#car-booking-structre #vehicle-card .vehicle-note {
+  color: #556677;
+  font-size: 14px;
+  margin-bottom: 1rem;
+}
+
+/* payment choice: the option is a radio button behind each image */
+#car-booking-structre .payment-option {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+#car-booking-structre #msform .payment-option input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+}
+
+#car-booking-structre .payment-option .img {
+  text-align: center;
+}
+
+#car-booking-structre .payment-option input:checked + .img {
+  border: 2px solid #ff700a;
+}
+
+#car-booking-structre .payment-option input:focus + .img {
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+/* shown after Submit */
+#car-booking-structre #booking-complete {
+  padding: 3rem 1rem;
+}
+
+#car-booking-structre #booking-complete .booking-complete-title {
+  color: #2c3e50;
+  font-size: 22px;
+  margin-bottom: 2rem;
+}
+
+#car-booking-structre #msform #booking-complete .action-button {
+  float: none;
+  width: auto;
+  padding: 10px 24px;
+  margin: 0;
+}
+
+/* ----- small interface refinements ----- */
+/* inputs and buttons use the same font as the labels */
+#car-booking-structre #msform input,
+#car-booking-structre #msform select,
+#car-booking-structre #msform textarea {
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0;
+}
+
+#car-booking-structre #msform .action-button,
+#car-booking-structre #msform .action-button-previous {
+  min-height: 44px;
+  font-size: 16px;
+}
+
+/* distance and time for the demo route, next to the line between the two stops */
+#car-booking-structre .demo-route .demo-route-leg {
+  display: flex;
+  align-items: center;
+}
+
+#car-booking-structre .demo-route .demo-route-leg p {
+  color: #556677;
+  font-size: 14px;
+  margin: 0 0 0 1.4rem;
+}
+
+/* vehicle cards: clear outline, and an orange outline for the selected one */
+#car-booking-structre #vehicle-card .card {
+  border: 1px solid #eaecee;
+}
+
+#car-booking-structre #vehicle-card .card.vehicle-selected {
+  border-color: #ff700a;
+  box-shadow: 0 0 0 1px #ff700a;
+}
+
+#car-booking-structre #vehicle-card .card .card-title {
+  margin-top: 1.25rem;
+}
+
+#car-booking-structre #vehicle-card .card .hidden-div {
+  padding-top: 0;
+  padding-bottom: 1rem;
+}
+
+@media (max-width: 767px) {
+  #car-booking-structre #map.demo-route {
+    min-height: 0;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  #car-booking-structre #vehicle-card .card .card-body .col-md-8 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  #car-booking-structre .step-error {
+    text-align: left;
+  }
+}
+
+/* keep the vehicle photo inside the card outline */
+#car-booking-structre #vehicle-card .card .card-body > .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#car-booking-structre #vehicle-card .card .card-body label {
+  margin-top: 0.75rem;
+}
+
+/* ----- interface refinements, second pass ----- */
+/* header */
+#car-booking-structre .card #heading {
+  text-transform: none;
+  color: #2c3e50;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+#car-booking-structre .card .heading-note {
+  color: #556677;
+  font-size: 15px;
+  margin-bottom: 0;
+}
+
+#car-booking-structre #msform {
+  margin-top: 16px;
+}
+
+/* progress indicator: upcoming, current and completed steps */
+#car-booking-structre #progressbar {
+  color: #556677;
+  margin-bottom: 20px;
+  padding: 0;
+}
+
+#car-booking-structre #progressbar li {
+  font-size: 14px;
+}
+
+#car-booking-structre #progressbar li strong {
+  font-weight: 400;
+}
+
+#car-booking-structre #progressbar #account:before,
+#car-booking-structre #progressbar #personal:before,
+#car-booking-structre #progressbar #payment:before,
+#car-booking-structre #progressbar #confirm:before {
+  font-family: 'Lato', sans-serif;
+}
+
+#car-booking-structre #progressbar li:before {
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  line-height: 32px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #556677;
+  background: #fff;
+  border: 2px solid #ced3d9;
+  margin: 0 auto 8px auto;
+  padding: 0;
+}
+
+#car-booking-structre #progressbar li:after {
+  top: 17px;
+  background: #ced3d9;
+}
+
+/* current step */
+#car-booking-structre #progressbar li.active {
+  color: #2c3e50;
+}
+
+#car-booking-structre #progressbar li.active strong {
+  font-weight: 700;
+}
+
+#car-booking-structre #progressbar li.active:before {
+  color: #fff;
+  background: #ff700a;
+  border-color: #ff700a;
+}
+
+#car-booking-structre #progressbar li.active:after {
+  background: #ff700a;
+}
+
+/* completed steps: the ones before the current step */
+#car-booking-structre #progressbar li.active:has(+ li.active) strong {
+  font-weight: 400;
+}
+
+#car-booking-structre #progressbar li.active:has(+ li.active):before {
+  color: #ff700a;
+  background: #fff;
+}
+
+/* Distance / Hourly tabs */
+#car-booking-structre .card #first-stage .form-card .nav-tabs {
+  border-bottom: 2px solid #ff700a;
+}
+
+#car-booking-structre .card #first-stage .form-card .nav-tabs .nav-item .nav-link {
+  padding-top: 11px;
+  padding-bottom: 11px;
+  border-radius: 4px 4px 0 0;
+}
+
+/* section headings inside the forms */
+#car-booking-structre .card #first-stage .form-card #home .distance-tap .title,
+#car-booking-structre .card #third-stage .personal-info-form .form-title .title {
+  background-color: transparent;
+}
+
+#car-booking-structre .card #first-stage .form-card #home .distance-tap .title p,
+#car-booking-structre .card #third-stage .personal-info-form .form-title .title p {
+  color: #2c3e50;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: none;
+  padding: 20px 0 10px 0;
+}
+
+/* form fields: each field has its own thin border */
+#car-booking-structre .card #first-stage .form-card #home .form .form-row,
+#car-booking-structre .card #third-stage .personal-info-form .form-row {
+  border: 0 !important;
+  margin: 0 -5px;
+}
+
+#car-booking-structre .card #first-stage .form-card #home .form .form-row .form-group,
+#car-booking-structre .card #first-stage .form-card #home .form .form-group,
+#car-booking-structre .card #first-stage .form-card #home .form .form-row .form-group:nth-child(1),
+#car-booking-structre .card #first-stage .form-card #home .form .form-group:nth-child(1) {
+  border: 0;
+  margin: 0 0 14px 0;
+}
+
+#car-booking-structre .card #third-stage .personal-info-form .form-row .form-group,
+#car-booking-structre .card #third-stage .personal-info-form .form-row .form-group:nth-child(1),
+#car-booking-structre .card #third-stage .personal-info-form .form-row .form-group:nth-child(2) {
+  border: 0;
+  margin: 0 0 14px 0;
+  padding: 0 5px;
+}
+
+#car-booking-structre .card #first-stage .form-card #home .form .form-row .form-group label,
+#car-booking-structre .card #first-stage .form-card #home .form .form-group label,
+#car-booking-structre .card #third-stage .personal-info-form .form-row .form-group label {
+  color: #2c3e50;
+  font-size: 14px;
+  margin: 0 0 6px 0;
+}
+
+#car-booking-structre .card #first-stage .form-card #home .form .form-row .form-group input,
+#car-booking-structre .card #first-stage .form-card #home .form .form-group input,
+#car-booking-structre .card #first-stage .form-card #home .form .form-group select,
+#car-booking-structre .card #first-stage .form-card #home .form .form-group .custom-select,
+#car-booking-structre .card #third-stage .personal-info-form .form-row .form-group input {
+  height: 44px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid #d5dae0;
+  border-radius: 4px;
+}
+
+#car-booking-structre .card #first-stage .form-card #home .form .form-group .custom-select {
+  padding-right: 40px;
+  background-position: right 12px center;
+}
+
+#car-booking-structre .card #first-stage .form-card #home .form .form-row .form-group input:focus,
+#car-booking-structre .card #first-stage .form-card #home .form .form-group select:focus,
+#car-booking-structre .card #third-stage .personal-info-form .form-row .form-group input:focus {
+  border: 1px solid #ff700a;
+}
+
+#car-booking-structre .card #third-stage .personal-info-form .section-title {
+  text-align: left;
+  margin: 1.5rem 0 1rem 0;
+}
+
+#car-booking-structre .card #third-stage .personal-info-form .section-title h5 {
+  color: #2c3e50;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+#car-booking-structre .card #third-stage .personal-info-form .payment-img {
+  margin-bottom: 1rem;
+}
+
+#car-booking-structre .card #third-stage .personal-info-form .payment-img .img {
+  border-radius: 4px;
+}
+
+#car-booking-structre .card #third-stage .personal-info-form .payment-img .img:hover {
+  box-shadow: none;
+}
+
+/* route preview */
+#car-booking-structre #map.demo-route {
+  border: 1px solid #e6e9ec;
+  border-radius: 4px;
+  min-height: 0;
+  padding: 1.5rem;
+  justify-content: flex-start;
+}
+
+#car-booking-structre .demo-route .demo-route-label {
+  color: #2c3e50;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: none;
+  margin-bottom: 1.25rem;
+}
+
+#car-booking-structre .demo-route .demo-route-stop .small {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+#car-booking-structre .demo-route .demo-route-stop .mediam {
+  font-weight: 700;
+}
+
+#car-booking-structre .demo-route .demo-route-line {
+  height: 28px;
+}
+
+/* distance and time, inside the route preview */
+#car-booking-structre .demo-route .demo-route-stats {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid #dfe3e8;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+}
+
+#car-booking-structre .demo-route .demo-route-stat {
+  display: flex;
+  align-items: center;
+  margin-right: 2.5rem;
+}
+
+#car-booking-structre .demo-route .demo-route-stat img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  margin-right: 0.6rem;
+}
+
+#car-booking-structre .demo-route .demo-route-stat p {
+  color: #778591;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+#car-booking-structre .demo-route .demo-route-stat .demo-route-value {
+  color: #2c3e50;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+#car-booking-structre .demo-route .demo-route-note {
+  margin: 1rem 0 0 0;
+}
+
+/* summaries and vehicle cards share the same thin border and corners */
+#car-booking-structre .card #sec-stage .form-card .height .fixed-pos .rSide,
+#car-booking-structre .card #third-stage .form-card .height .fixed-pos .rSide,
+#car-booking-structre .card #last-stage .fixed-pos .rSide {
+  border: 1px solid #e6e9ec;
+  border-radius: 4px;
+  padding: 1.5rem;
+}
+
+#car-booking-structre .card #sec-stage .form-card .height .fixed-pos .total-invoice,
+#car-booking-structre .card #third-stage .form-card .height .fixed-pos .total-invoice,
+#car-booking-structre .card #last-stage .fixed-pos .total-invoice {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+}
+
+#car-booking-structre .card #last-stage .titlePayment {
+  color: #2c3e50;
+  font-size: 18px;
+  margin-bottom: 1rem;
+}
+
+#car-booking-structre .card #sec-stage .form-card .l-side #vehicle-card {
+  margin-top: 0;
+}
+
+#car-booking-structre #vehicle-card .card {
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0 0 1rem 0;
+}
+
+#car-booking-structre #vehicle-card .card.vehicle-selected {
+  box-shadow: none;
+  outline: 1px solid #ff700a;
+}
+
+#car-booking-structre .card #last-stage .fixed-pos .summry-img .img img {
+  border-radius: 4px;
+}
+
+/* Next and Previous */
+#car-booking-structre #msform .action-button,
+#car-booking-structre #msform .action-button-previous {
+  min-width: 110px;
+  border-radius: 4px;
+}
+
+@media (max-width: 767px) {
+  #car-booking-structre .card #heading {
+    font-size: 24px;
+  }
+
+  #car-booking-structre #progressbar li {
+    font-size: 12px;
+  }
+
+  #car-booking-structre #progressbar li:before {
+    width: 32px;
+    height: 32px;
+    line-height: 28px;
+    font-size: 14px;
+  }
+
+  #car-booking-structre #progressbar li:after {
+    top: 15px;
+  }
+
+  #car-booking-structre #map.demo-route {
+    padding: 1.25rem;
+  }
+
+  #car-booking-structre .demo-route .demo-route-stat {
+    margin-right: 1.5rem;
+  }
+
+  #car-booking-structre .card #sec-stage .form-card .l-side #vehicle-card {
+    margin-top: 1.5rem;
+  }
+}
+
+/* selected payment option */
+#car-booking-structre .card #third-stage .personal-info-form .payment-img .payment-option input:checked + .img {
+  border: 2px solid #ff700a;
+}
+
+/* the small route icons sit on the grey panel without a white box */
+#car-booking-structre .demo-route .demo-route-stat img {
+  mix-blend-mode: multiply;
+}
+
+#car-booking-structre .demo-route .demo-route-stat:last-child {
+  margin-right: 0;
 }

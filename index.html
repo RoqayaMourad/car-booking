@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <title>Car Booking System</title>
@@ -16,8 +16,8 @@
       <div class="row justify-content-center">
         <div class="col-11 col-sm-6 col-md-12 col-lg-12 col-xl-12 text-center p-0 mt-3 mb-2">
           <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-            <h2 id="heading">Car Booking Stystem</h2>
-            <p>Fill all form field to go to next step</p>
+            <h2 id="heading">Car Booking</h2>
+            <p class="heading-note">Fill in the required fields to go to the next step.</p>
             <form id="msform">
               <!-- progressbar-->
               <ul id="progressbar">
@@ -25,61 +25,70 @@
                 <li id="personal"><strong>Choose a Vehicle</strong></li>
                 <li id="payment"><strong>Enter Contact Details</strong></li>
                 <li id="confirm"><strong>Booking Summary</strong></li>
-              </ul><br>
+              </ul>
               <!-- fieldsets-->
               <fieldset id="first-stage">
                 <div class="form-card">
                   <div class="row">
                     <div class="col-md-6">
-                      <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="changeMode('distance')">Distance</a></li>
-                        <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"  onclick="changeMode('hourly')">Hourly</a></li>
+                      <ul class="nav nav-tabs" id="myTab">
+                        <li class="nav-item"><a class="nav-link active" id="home-tab" href="#home" aria-current="true" onclick="return changeMode('distance')">Distance</a></li>
+                        <li class="nav-item"><a class="nav-link" id="profile-tab" href="#home" onclick="return changeMode('hourly')">Hourly</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Flat rate</a></li> -->
                       </ul>
                       <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="tab-pane fade show active" id="home">
                           <div class="distance-tap">
                             <div class="title">
-                              <p>RIDE DETAILS</p>
+                              <p>Ride details</p>
                             </div>
                           </div>
                           <div class="form">
                             <div class="form-row">
                               <div class="form-group col-md-6">
-                                <label for="inputEmail4">Pickup Date</label>
-                                <input class="form-control" id="inputEmail4" type="date">
+                                <label for="pickup-date">Pickup date *</label>
+                                <input class="form-control" id="pickup-date" type="date">
                               </div>
                               <div class="form-group col-md-6">
-                                <label for="inputPassword4">Pickup Time</label>
-                                <input class="form-control" id="inputPassword4" type="time">
+                                <label for="pickup-time">Pickup time *</label>
+                                <input class="form-control" id="pickup-time" type="time">
                               </div>
                             </div>
                             <!-- Pickup location -->
                             <div class="form-group">
-                              <div class="inputAdress-input" id="inputAdress-input">
-                                <label for="inputAddress">Pickup Location</label>
-                                <input class="form-control" id="inputAddress" type="text" placeholder="Enter a location">
-                                <button role="button" class="pickup-button" id="add-waypoint">+</button>
-                              </div>
+                              <label for="pickup-location">Pickup location *</label>
+                              <select class="form-control custom-select" id="pickup-location"></select>
                             </div>
-                            <div class="form-group">
-                              <label for="inputAddress2">Drop-off-location</label>
-                              <input class="form-control" id="inputAddress2" type="text" placeholder="Enter a location">
+                            <div class="form-group" id="dropoff-group">
+                              <label for="dropoff-location">Drop-off location *</label>
+                              <select class="form-control custom-select" id="dropoff-location"></select>
                             </div>
-                            <div class="distance-tap">
+                            <!-- Hourly mode only -->
+                            <div class="form-group" id="duration-group" hidden>
+                              <label for="duration-hours">Duration *</label>
+                              <select class="form-control custom-select" id="duration-hours">
+                                <option value="1">1 hour(s)</option>
+                                <option value="2" selected>2 hour(s)</option>
+                                <option value="3">3 hour(s)</option>
+                                <option value="4">4 hour(s)</option>
+                                <option value="6">6 hour(s)</option>
+                                <option value="8">8 hour(s)</option>
+                              </select>
+                            </div>
+                            <div class="distance-tap" id="extra-title">
                               <div class="title">
-                                <p>EXTRA OPTIONS</p>
+                                <p>Extra options</p>
                               </div>
                             </div>
-                            <div class="form-group">
-                              <label for="inputState">EXTRA TIME </label>
-                              <select class="form-control custom-select" id="inputState">
-                                <option selected="">0 hour(s)</option>
-                                <option>1 hour(s)</option>
-                                <option>2 hour(s)</option>
-                                <option>3 hour(s)</option>
-                                <option>4 hour(s)</option>
-                                <option>5 hour(s)</option>
+                            <div class="form-group" id="extra-group">
+                              <label for="extra-time">Extra time</label>
+                              <select class="form-control custom-select" id="extra-time">
+                                <option value="0" selected>0 hour(s)</option>
+                                <option value="1">1 hour(s)</option>
+                                <option value="2">2 hour(s)</option>
+                                <option value="3">3 hour(s)</option>
+                                <option value="4">4 hour(s)</option>
+                                <option value="5">5 hour(s)</option>
                               </select>
                             </div>
                           </div>
@@ -88,24 +97,47 @@
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div id="map" style="width:100%;height:400px;"></div>
-                      <div id="total">
-                        <div class="row pt-2">
-                          <div class="col-md-6 text-center">
-                            <img src="img/distance.png" alt="">
-                            <p class="p-result">TOTAL DISTANCE</p>
-                            <div id="distance-result">0 km</div>
-                          </div>
-                          <div class="col-md-6 text-center">
-                            <img src="img/time.png" alt="">
-                            <p class="p-result">TOTAL TIME</p>
-                            <div id="time-result">0h 0m </div>
+                      <!-- demo route summary, in place of the map -->
+                      <div id="map" class="demo-route">
+                        <p class="demo-route-label">Route preview</p>
+                        <div class="demo-route-stop">
+                          <span class="demo-route-dot"></span>
+                          <div>
+                            <p class="small">FROM</p>
+                            <p class="mediam" id="route-from">Choose a pickup location</p>
                           </div>
                         </div>
+                        <div class="demo-route-line"></div>
+                        <div class="demo-route-stop">
+                          <span class="demo-route-dot demo-route-dot-end"></span>
+                          <div>
+                            <p class="small" id="route-to-label">TO</p>
+                            <p class="mediam" id="route-to">Choose a drop-off location</p>
+                          </div>
+                        </div>
+                        <!-- sample distance and time for the chosen route -->
+                        <div class="demo-route-stats" id="total">
+                          <div class="demo-route-stat">
+                            <img src="img/distance.png" alt="">
+                            <div>
+                              <p class="p-result">Total distance</p>
+                              <div class="demo-route-value" id="distance-result">0 km</div>
+                            </div>
+                          </div>
+                          <div class="demo-route-stat">
+                            <img src="img/time.png" alt="">
+                            <div>
+                              <p class="p-result">Total time</p>
+                              <div class="demo-route-value" id="time-result">0h 0m </div>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="demo-route-note">Demo data: locations, distances, times and prices are sample values, not live map results.</p>
                       </div>
                     </div>
                   </div>
                 </div>
+                <p class="step-error" role="alert"></p>
                 <input class="next action-button" type="button" name="next" value="Next">
               </fieldset>
               <fieldset id="sec-stage">
@@ -117,121 +149,74 @@
                           <div class="f-details">
                             <h6 class="title">Summary</h6>
                             <p class="small">SERVICE TYPE</p>
-                            <p class="mediam">Hourly</p>
+                            <p class="mediam" data-summary="service"></p>
                           </div>
                           <div class="f-details">
-                            <p class="small">FROM - TO</p>
-                            <p class="mediam">Cairo, Egypt - Cairo Festival City, Nasr City, Egypt</p>
+                            <p class="small" data-summary="routeLabel">FROM - TO</p>
+                            <p class="mediam" data-summary="route"></p>
                           </div>
                           <div class="f-details">
                             <p class="small">PICKUP DATE, TIME</p>
-                            <p class="mediam">14-07-2020, 7:30</p>
+                            <p class="mediam" data-summary="dateTime"></p>
                           </div>
                           <div class="f-details">
-                            <p class="small">EXTRA TIME</p>
-                            <p class="mediam">1 hours</p>
+                            <p class="small" data-summary="extraLabel">EXTRA TIME</p>
+                            <p class="mediam" data-summary="extra"></p>
                           </div>
                           <div class="col-two">
                             <div class="f-details">
                               <p class="small">TOTAL DISTANCE</p>
-                              <p class="mediam">26.3 km</p>
+                              <p class="mediam" data-summary="distance"></p>
                             </div>
                             <div class="f-details">
                               <p class="small">TOTAL TIME</p>
-                              <p class="mediam">1 h 31 m</p>
+                              <p class="mediam" data-summary="time"></p>
                             </div>
                           </div>
                         </div>
                         <div class="total-invoice">
                           <div class="col-two">
                             <h6 class="title">Total</h6>
-                            <h6 class="title">$0.00</h6>
+                            <h6 class="title" data-summary="total">$0.00</h6>
                           </div>
                           <div class="col-two">
                             <h6 class="title">To pay <span class="small"> (30% deposit)</span></h6>
-                            <h6 class="title">$0.00</h6>
+                            <h6 class="title" data-summary="deposit">$0.00</h6>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-9">
                       <div class="l-side">
-                        <div class="filter-table">
-                          <div class="col-md-12 p-0">
-                            <div class="title">
-                              <h5>VEHICLES FILTER</h5>
-                            </div>
-                          </div>
-                          <div class="items-box">
-                            <div class="row px-3">
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label for="inputState">PASSENGERS</label>
-                                  <select class="form-control custom-select" id="inputState">
-                                    <option selected="">1</option>
-                                    <option>2 </option>
-                                    <option>3 </option>
-                                    <option>4 </option>
-                                    <option>5 </option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label for="inputState">SUITCASES </label>
-                                  <select class="form-control custom-select" id="inputState">
-                                    <option selected="">1</option>
-                                    <option>2 </option>
-                                    <option>3 </option>
-                                    <option>4 </option>
-                                    <option>5 </option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label for="inputState">TYPE </label>
-                                  <select class="form-control custom-select" id="inputState">
-                                    <option selected="">- All vehicles -</option>
-                                    <option>Limousine</option>
-                                    <option>Sedan</option>
-                                    <option>Stretch Limousine</option>
-                                    <option>SUV</option>
-                                    <option>Van</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                         <div id="vehicle-card">
                           <div class="col-md-12 col-lg-12 col-sm-12">
                             <div class="card">
                               <div class="card-body p-0">
                                 <div class="row p-0">
                                   <div class="col-md-4 p-0">
-                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
+                                    <div class="card-img"><img src="./img/car.jpg" alt="Mercedes-Benz E220"></div>
                                   </div>
                                   <div class="col-md-8">
                                     <div class="row p-0">
                                       <div class="col-md-8">
-                                        <h2 class="card-title">Mercedes-Benz E220</h2>
+                                        <h2 class="card-title">Mercedes-Benz E220 Economy</h2>
                                       </div>
                                       <div class="col-md-4">
                                         <label>
-                                          <input class="card-input-element" type="radio" name="product">
+                                          <input class="card-input-element" type="radio" name="product" value="economy">
                                           <div class="select-btn card-input"><a class="try">Select</a></div>
                                         </label>
                                       </div>
                                       <div class="col-md-12">
-                                        <h2 class="card-price">$18.41</h2>
+                                        <h2 class="card-price" data-price="economy">$0.00</h2>
+                                        <p class="vehicle-note">Standard service. Demo price: $0.80 per km or $20 per hour.</p>
                                       </div>
                                     </div>
                                     <div class="row">
                                       <div class="col-md-12">
                                         <div class="hidden-div">
                                           <div class="menu" style="display: none;">
-                                            <p>The mid-size luxury sedan by BMW with great V8 engine with both natural aspiration and turbocharging. A great option for corporate travel</p>
+                                            <p>A mid-size luxury sedan by Mercedes-Benz. A great option for corporate travel</p>
                                             <div class="info-table">
                                               <div class="row w-100">
                                                 <div class="col-md-6">
@@ -325,7 +310,7 @@
                                               </div>
                                             </div>
                                           </div>
-                                          <div id="show">More info </div>
+                                          <div id="show">More info</div>
                                         </div>
                                       </div>
                                     </div>
@@ -339,21 +324,22 @@
                               <div class="card-body p-0">
                                 <div class="row p-0">
                                   <div class="col-md-4 p-0">
-                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
+                                    <div class="card-img"><img src="./img/car.jpg" alt="Mercedes-Benz E220"></div>
                                   </div>
                                   <div class="col-md-8">
-                                    <div class="row p-00">
+                                    <div class="row p-0">
                                       <div class="col-md-8">
-                                        <h2 class="card-title">Mercedes-Benz E220</h2>
+                                        <h2 class="card-title">Mercedes-Benz E220 Business</h2>
                                       </div>
                                       <div class="col-md-4">
                                         <label>
-                                          <input class="card-input-element" type="radio" name="product">
+                                          <input class="card-input-element" type="radio" name="product" value="business">
                                           <div class="select-btn card-input"><a class="try">Select</a></div>
                                         </label>
                                       </div>
                                       <div class="col-md-12">
-                                        <h2 class="card-price">$18.41</h2>
+                                        <h2 class="card-price" data-price="business">$0.00</h2>
+                                        <p class="vehicle-note">Bottled water and Wi-Fi. Demo price: $1.10 per km or $28 per hour.</p>
                                       </div>
                                     </div>
                                   </div>
@@ -366,102 +352,22 @@
                               <div class="card-body p-0">
                                 <div class="row p-0">
                                   <div class="col-md-4 p-0">
-                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
+                                    <div class="card-img"><img src="./img/car.jpg" alt="Mercedes-Benz E220"></div>
                                   </div>
                                   <div class="col-md-8">
                                     <div class="row p-0">
                                       <div class="col-md-8">
-                                        <h2 class="card-title">Mercedes-Benz E220</h2>
+                                        <h2 class="card-title">Mercedes-Benz E220 First Class</h2>
                                       </div>
                                       <div class="col-md-4">
                                         <label>
-                                          <input class="card-input-element" type="radio" name="product">
+                                          <input class="card-input-element" type="radio" name="product" value="first">
                                           <div class="select-btn card-input"><a class="try">Select</a></div>
                                         </label>
                                       </div>
                                       <div class="col-md-12">
-                                        <h2 class="card-price">$18.41</h2>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-12 col-lg-12 col-sm-12">
-                            <div class="card">
-                              <div class="card-body p-0">
-                                <div class="row p-0">
-                                  <div class="col-md-4 p-0">
-                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
-                                  </div>
-                                  <div class="col-md-8">
-                                    <div class="row p-0">
-                                      <div class="col-md-8">
-                                        <h2 class="card-title">Mercedes-Benz E220</h2>
-                                      </div>
-                                      <div class="col-md-4">
-                                        <label>
-                                          <input class="card-input-element" type="radio" name="product">
-                                          <div class="select-btn card-input"><a class="try">Select</a></div>
-                                        </label>
-                                      </div>
-                                      <div class="col-md-12">
-                                        <h2 class="card-price">$18.41</h2>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-12 col-lg-12 col-sm-12">
-                            <div class="card">
-                              <div class="card-body p-0">
-                                <div class="row p-0">
-                                  <div class="col-md-4 p-0">
-                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
-                                  </div>
-                                  <div class="col-md-8">
-                                    <div class="row p-0">
-                                      <div class="col-md-8">
-                                        <h2 class="card-title">Mercedes-Benz E220</h2>
-                                      </div>
-                                      <div class="col-md-4">
-                                        <label>
-                                          <input class="card-input-element" type="radio" name="product">
-                                          <div class="select-btn card-input"><a class="try">Select</a></div>
-                                        </label>
-                                      </div>
-                                      <div class="col-md-12">
-                                        <h2 class="card-price">$18.41</h2>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-12 col-lg-12 col-sm-12">
-                            <div class="card">
-                              <div class="card-body p-0">
-                                <div class="row p-0">
-                                  <div class="col-md-4 p-0">
-                                    <div class="card-img"><img src="./img/car.jpg" alt=""></div>
-                                  </div>
-                                  <div class="col-md-8">
-                                    <div class="row p-0">
-                                      <div class="col-md-8">
-                                        <h2 class="card-title">Mercedes-Benz E220</h2>
-                                      </div>
-                                      <div class="col-md-4">
-                                        <label>
-                                          <input class="card-input-element" type="radio" name="product">
-                                          <div class="select-btn card-input"><a class="try">Select</a></div>
-                                        </label>
-                                      </div>
-                                      <div class="col-md-12">
-                                        <h2 class="card-price">$18.41</h2>
+                                        <h2 class="card-price" data-price="first">$0.00</h2>
+                                        <p class="vehicle-note">Meet and greet with a senior driver. Demo price: $1.50 per km or $40 per hour.</p>
                                       </div>
                                     </div>
                                   </div>
@@ -474,6 +380,7 @@
                     </div>
                   </div>
                 </div>
+                <p class="step-error" role="alert"></p>
                 <input class="next action-button" type="button" name="next" value="Next">
                 <input class="previous action-button-previous" type="button" name="previous" value="Previous">
               </fieldset>
@@ -487,39 +394,43 @@
                             <div class="f-details">
                               <h6 class="title">Summary</h6>
                               <p class="small">SERVICE TYPE</p>
-                              <p class="mediam">Hourly</p>
+                              <p class="mediam" data-summary="service"></p>
                             </div>
                             <div class="f-details">
-                              <p class="small">FROM - TO</p>
-                              <p class="mediam">Cairo, Egypt - Cairo Festival City, Nasr City, Egypt</p>
+                              <p class="small" data-summary="routeLabel">FROM - TO</p>
+                              <p class="mediam" data-summary="route"></p>
                             </div>
                             <div class="f-details">
                               <p class="small">PICKUP DATE, TIME</p>
-                              <p class="mediam">14-07-2020, 7:30</p>
+                              <p class="mediam" data-summary="dateTime"></p>
                             </div>
                             <div class="f-details">
-                              <p class="small">EXTRA TIME</p>
-                              <p class="mediam">1 hours</p>
+                              <p class="small" data-summary="extraLabel">EXTRA TIME</p>
+                              <p class="mediam" data-summary="extra"></p>
                             </div>
                             <div class="col-two">
                               <div class="f-details">
                                 <p class="small">TOTAL DISTANCE</p>
-                                <p class="mediam">26.3 km</p>
+                                <p class="mediam" data-summary="distance"></p>
                               </div>
                               <div class="f-details">
                                 <p class="small">TOTAL TIME</p>
-                                <p class="mediam">1 h 31 m</p>
+                                <p class="mediam" data-summary="time"></p>
                               </div>
+                            </div>
+                            <div class="f-details">
+                              <p class="small">VEHICLE</p>
+                              <p class="mediam" data-summary="vehicle"></p>
                             </div>
                           </div>
                           <div class="total-invoice">
                             <div class="col-two">
                               <h6 class="title">Total</h6>
-                              <h6 class="title">$0.00</h6>
+                              <h6 class="title" data-summary="total">$0.00</h6>
                             </div>
                             <div class="col-two">
                               <h6 class="title">To pay <span class="small"> (30% deposit)</span></h6>
-                              <h6 class="title">$0.00</h6>
+                              <h6 class="title" data-summary="deposit">$0.00</h6>
                             </div>
                           </div>
                         </div>
@@ -528,92 +439,53 @@
                         <div class="personal-info-form">
                           <div class="form-title">
                             <div class="title">
-                              <p>RIDE DETAILS</p>
+                              <p>Contact details</p>
                             </div>
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">FIRST NAME * </label>
-                              <input class="form-control" type="text">
+                              <label for="first-name">First name *</label>
+                              <input class="form-control" id="first-name" type="text" autocomplete="given-name">
                             </div>
                             <div class="form-group col-md-6">
-                              <label for="inputPassword4">LAST NAME *</label>
-                              <input class="form-control" type="text">
+                              <label for="last-name">Last name *</label>
+                              <input class="form-control" id="last-name" type="text" autocomplete="family-name">
                             </div>
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputEmail4">E-MAIL ADDRESS *</label>
-                              <input class="form-control" id="inputEmail4" type="text">
+                              <label for="email">E-mail address *</label>
+                              <input class="form-control" id="email" type="email" autocomplete="email">
                             </div>
                             <div class="form-group col-md-6">
-                              <label for="inputPassword4">PHONE NUMBER</label>
-                              <input class="form-control" type="text">
+                              <label for="phone">Phone number</label>
+                              <input class="form-control" id="phone" type="tel" autocomplete="tel">
                             </div>
                           </div>
                           <div class="form-row">
                             <div class="form-group col-md-12">
-                              <label for="inputEmail4">COMMENTS</label>
-                              <input class="form-control" type="text">
-                            </div>
-                          </div>
-                          <div class="form-title">
-                            <div class="title">
-                              <p>BILLING ADDRESS</p>
-                            </div>
-                          </div>
-                          <div class="form-row">
-                            <div class="form-group col-md-6">
-                              <label for="inputEmail4">FIRST NAME * </label>
-                              <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group col-md-6">
-                              <label for="inputPassword4">TAX NUMBER</label>
-                              <input class="form-control" type="text">
-                            </div>
-                          </div>
-                          <div class="form-row">
-                            <div class="form-group col-md-4">
-                              <label for="inputEmail4">STREET *</label>
-                              <input class="form-control" id="inputEmail4" type="text">
-                            </div>
-                            <div class="form-group col-md-4">
-                              <label for="inputPassword4">STREET NUMBER</label>
-                              <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group col-md-4">
-                              <label for="inputPassword4">CITY *</label>
-                              <input class="form-control" type="text">
-                            </div>
-                          </div>
-                          <div class="form-row">
-                            <div class="form-group col-md-4">
-                              <label for="inputEmail4">STATE</label>
-                              <input class="form-control" id="inputEmail4" type="text">
-                            </div>
-                            <div class="form-group col-md-4">
-                              <label for="inputPassword4">POSTAL CODE *</label>
-                              <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group col-md-4">
-                              <label for="inputPassword4">COUNTRY *</label>
-                              <input class="form-control" type="text">
+                              <label for="comments">Comments</label>
+                              <input class="form-control" id="comments" type="text">
                             </div>
                           </div>
                           <div class="section-title">
                             <h5>Choose payment method</h5>
+                            <p class="demo-note">Demo only. No card details are collected and no payment is taken.</p>
                           </div>
                           <div class="payment-img">
                             <div class="row">
-                              <div class="col-md-4"><a href="#">
-                                  <div class="img"><img src="./img/cash1.png" alt=""></div>
-                                </a></div>
-                              <div class="col-md-4"><a href="#">
-                                  <div class="img"><img src="./img/cash2.png" alt=""></div>
-                                </a></div>
-                              <div class="col-md-4"><a href="#">
-                                  <div class="img"><img src="./img/cash3.png" alt=""></div>
-                                </a></div>
+                              <div class="col-md-4"><label class="payment-option">
+                                  <input type="radio" name="payment" value="Cash" checked>
+                                  <div class="img"><img src="./img/cash1.PNG" alt="Cash payment"></div>
+                                </label></div>
+                              <div class="col-md-4"><label class="payment-option">
+                                  <input type="radio" name="payment" value="Stripe">
+                                  <div class="img"><img src="./img/cash2.PNG" alt="Stripe"></div>
+                                </label></div>
+                              <div class="col-md-4"><label class="payment-option">
+                                  <input type="radio" name="payment" value="PayPal">
+                                  <div class="img"><img src="./img/cash3.PNG" alt="PayPal"></div>
+                                </label></div>
                             </div>
                           </div>
                         </div>
@@ -621,6 +493,7 @@
                     </div>
                   </div>
                 </div>
+                <p class="step-error" role="alert"></p>
                 <input class="next action-button" type="button" name="next" value="Next">
                 <input class="previous action-button-previous" type="button" name="previous" value="Previous">
               </fieldset>
@@ -631,20 +504,24 @@
                       <div class="col-md-4">
                         <div class="fixed-pos">
                           <div class="rSide">
-                            <h5 class="titlePayment">Contact & Billing Info</h5>
+                            <h5 class="titlePayment">Contact Info</h5>
                             <div class="col-two">
                               <div class="f-details">
                                 <p class="small">FIRST NAME</p>
-                                <p class="mediam">tony</p>
+                                <p class="mediam" data-summary="firstName"></p>
                               </div>
                               <div class="f-details">
                                 <p class="small">LAST NAME</p>
-                                <p class="mediam">tony</p>
+                                <p class="mediam" data-summary="lastName"></p>
                               </div>
                             </div>
                             <div class="f-details">
-                              <p class="small">E-MAIL ADDDRESS</p>
-                              <p class="mediam">tonyhero44@yahoo.com</p>
+                              <p class="small">E-MAIL ADDRESS</p>
+                              <p class="mediam" data-summary="email"></p>
+                            </div>
+                            <div class="f-details">
+                              <p class="small">PHONE NUMBER</p>
+                              <p class="mediam" data-summary="phone"></p>
                             </div>
                           </div>
                         </div>
@@ -654,42 +531,39 @@
                             <h5 class="titlePayment">Method</h5>
                             <div class="f-details">
                               <p class="small">YOUR CHOICE</p>
-                              <p class="mediam">Cash</p>
+                              <p class="mediam" data-summary="payment"></p>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="fixed-pos">
-                          <div class="map-side">
-                            <div id="googleMaps" style="width:100%;height:400px;"></div>
-                          </div>
                           <div class="rSide">
                             <h5 class="titlePayment">Ride details</h5>
                             <div class="f-details">
                               <p class="small">SERVICE TYPE</p>
-                              <p class="mediam">Distance</p>
+                              <p class="mediam" data-summary="service"></p>
                             </div>
                             <div class="f-details">
-                              <p class="small">FROM - TO</p>
-                              <p class="mediam">Cairo, Egypt - Cairo Festival City, Nasr City, Egypt</p>
+                              <p class="small" data-summary="routeLabel">FROM - TO</p>
+                              <p class="mediam" data-summary="route"></p>
                             </div>
                             <div class="f-details">
                               <p class="small">PICKUP DATE, TIME</p>
-                              <p class="mediam">29-07-2020, 7:00</p>
+                              <p class="mediam" data-summary="dateTime"></p>
                             </div>
                             <div class="f-details">
-                              <p class="small">EXTRA TIME</p>
-                              <p class="mediam">1 hours</p>
+                              <p class="small" data-summary="extraLabel">EXTRA TIME</p>
+                              <p class="mediam" data-summary="extra"></p>
                             </div>
                             <div class="col-two">
                               <div class="f-details">
                                 <p class="small">TOTAL DISTANCE</p>
-                                <p class="mediam">26.3 km</p>
+                                <p class="mediam" data-summary="distance"></p>
                               </div>
                               <div class="f-details">
                                 <p class="small">TOTAL TIME</p>
-                                <p class="mediam">1 h 29 m</p>
+                                <p class="mediam" data-summary="time"></p>
                               </div>
                             </div>
                           </div>
@@ -698,33 +572,33 @@
                       <div class="col-md-4">
                         <div class="fixed-pos">
                           <div class="summry-img">
-                            <div class="img"><img src="./img/car.jpg" alt=""></div>
+                            <div class="img"><img src="./img/car.jpg" alt="Mercedes-Benz E220"></div>
                           </div>
                           <div class="rSide">
                             <h5 class="titlePayment">Vehicle info</h5>
                             <div class="f-details">
                               <p class="small">VEHICLE</p>
-                              <p class="mediam">Mercedes-Benz E220</p>
+                              <p class="mediam" data-summary="vehicle"></p>
                             </div>
                           </div>
                           <div class="total-invoice">
                             <div class="col-two">
                               <h6 class="title">Extra time</h6>
-                              <h6 class="title">$0.00</h6>
+                              <h6 class="title" data-summary="extraPrice">$0.00</h6>
                             </div>
                             <div class="col-two">
                               <h6 class="title">Selected vehicle</h6>
-                              <h6 class="title">$0.00</h6>
+                              <h6 class="title" data-summary="vehiclePrice">$0.00</h6>
                             </div>
                           </div>
                           <div class="total-invoice">
                             <div class="col-two">
                               <h6 class="title">Total</h6>
-                              <h6 class="title">$0.00</h6>
+                              <h6 class="title" data-summary="total">$0.00</h6>
                             </div>
                             <div class="col-two">
                               <h6 class="title">To pay <span class="small"> (30% deposit)</span></h6>
-                              <h6 class="title">$0.00</h6>
+                              <h6 class="title" data-summary="deposit">$0.00</h6>
                             </div>
                           </div>
                         </div>
@@ -732,9 +606,14 @@
                     </div>
                   </div>
                 </div>
-                <input class="next action-button" type="button" name="next" value="Submit">
+                <input class="action-button" id="submit-booking" type="button" name="submit" value="Submit">
                 <input class="previous action-button-previous" type="button" name="previous" value="Previous">
               </fieldset>
+              <!-- shown after Submit -->
+              <div id="booking-complete" role="status" hidden>
+                <h3 class="booking-complete-title">Demo booking complete. No booking or payment was sent.</h3>
+                <input class="action-button" id="start-again" type="button" value="Start again">
+              </div>
             </form>
           </div>
         </div>
@@ -746,8 +625,6 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="js/fontawesome.js"></script>
   <script src="js/main.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNzTcMULRgUpe93sR2oVTQCpwhHqnIfU&callback=initMap&libraries=places">
-  </script>
 </body>
 
 </html>
